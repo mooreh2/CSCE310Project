@@ -25,7 +25,9 @@ die("Connection failed:" . $conn->connect_error);
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
-<body>
+
+<body style="background-color: #eee;">
+
 <div>
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
@@ -33,9 +35,10 @@ die("Connection failed:" . $conn->connect_error);
       <a class="navbar-brand" href="#">Punch</a>
     </div>
     <ul class="nav navbar-nav">
-        <li><a href="#">Profile</a></li>
-      <li><a href="#">Appointments</a></li>
-      <li><a href="#">Chats</a></li>
+        <li><a href="/">Login</a></li>
+        <li><a href="/">My Profile</a></li>
+      <li><a href="/">Appointments</a></li>
+      <li><a href="/inbox.php">Inbox</a></li>
     </ul>
   </div>
 </nav>
@@ -65,11 +68,6 @@ die("Connection failed:" . $conn->connect_error);
 
               <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
 
-              <div class="d-flex justify-content-center text-center mt-4 pt-1">
-                <a href="#!" class="text-white"><i class="fab fa-facebook-f fa-lg"></i></a>
-                <a href="#!" class="text-white"><i class="fab fa-twitter fa-lg mx-4 px-2"></i></a>
-                <a href="#!" class="text-white"><i class="fab fa-google fa-lg"></i></a>
-              </div>
 
             </div>
 
