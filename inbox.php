@@ -51,7 +51,8 @@ die("Connection failed:" . $conn->connect_error);
 		<ul class="list-group mt-5 text-white">
 
 		  <li class="list-group-item d-flex justify-content-between align-content-center">
-		  	<div class="d-flex flex-row">
+        <a href="/message.php">
+        <div class="d-flex flex-row">
 		  		<div class="ml-2">
 		  			<h3 class="mb-0">John Smith</h3>
 		  			<div class="about">
@@ -62,7 +63,8 @@ die("Connection failed:" . $conn->connect_error);
 		  </li>
 
       <li class="list-group-item d-flex justify-content-between align-content-center">
-        <div class="d-flex flex-row">
+      <a href="/message.php">
+      <div class="d-flex flex-row">
           <div class="ml-2">
             <h3 class="mb-0">John Smith</h3>
             <div class="about">
@@ -73,6 +75,7 @@ die("Connection failed:" . $conn->connect_error);
       </li>
 
       <li class="list-group-item d-flex justify-content-between align-content-center">
+        <a href="/message.php">
         <div class="d-flex flex-row">
           <div class="ml-2">
             <h3 class="mb-0">John Smith</h3>
@@ -84,6 +87,7 @@ die("Connection failed:" . $conn->connect_error);
       </li>
       
       <li class="list-group-item d-flex justify-content-between align-content-center">
+        <a href="/message.php">
         <div class="d-flex flex-row">
           <div class="ml-2">
             <h3 class="mb-0">John Smith</h3>

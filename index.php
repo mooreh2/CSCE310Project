@@ -1,20 +1,29 @@
+<!-- 
+  PHP Portion of code
+  Here we will connect to the database and query important data from said DB
+-->
 <?php
 
 $servername = "localhost";
 $username = "root";
+$password = "";
+$dbName = "csce_310_punch";
 
 // Create connection
-$conn = new mysqli($servername, $username);
+$conn = new mysqli($servername, $username, $password, $dbName);
 
 // Check connection
-if($conn -> connect_error)
-{
-die("Connection failed:" . $conn->connect_error);
-
+if($conn -> connect_error) {
+  die("Connection failed:" . $conn->connect_error);
 }
 
+$sql = "SELECT * FROM `user`;";
+$result = $conn->query($sql);
+$result = $result->fetch_all();
 
 ?>
+
+<!-- Beginning of HTML portion -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,6 +53,15 @@ die("Connection failed:" . $conn->connect_error);
 </nav>
 </div>
 <br></br><br></br>
+
+<!-- Testing query results -->
+<?php
+  foreach($result as $a) {
+    echo '<strong>Username</strong>: ' .$a[3];
+    echo '<br/>';
+  }
+?>
+
 <div class="justify-content-center align-items-center h-500">
 <section class="vh-100 gradient-custom justify-content-center align-center">
   <div class="container py-5 h-100">
@@ -54,16 +72,11 @@ die("Connection failed:" . $conn->connect_error);
             <div class="mb-md-5 mt-md-4 pb-5">
 
               <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
-              <p class="text-white-50 mb-5">Please enter your username and password.</p>
+              <p class="text-white-50 mb-5">Please enter your username.</p>
 
               <div class="form-outline form-white mb-4">
                 <input type="Username" id="typeEmailX" class="form-control form-control-lg" />
                 <label class="form-label" for="typeEmailX">Username</label>
-              </div>
-
-              <div class="form-outline form-white mb-4">
-                <input type="Password" id="typePasswordX" class="form-control form-control-lg" />
-                <label class="form-label" for="typePasswordX">Password</label>
               </div>
 
               <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
