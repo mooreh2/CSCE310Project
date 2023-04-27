@@ -54,16 +54,11 @@ die("Connection failed:" . $conn->connect_error);
             <div class="mb-md-5 mt-md-4 pb-5">
 
               <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
-              <p class="text-white-50 mb-5">Please enter your username and password.</p>
+              <p class="text-white-50 mb-5">Please enter your username.</p>
 
               <div class="form-outline form-white mb-4">
                 <input type="Username" id="typeEmailX" class="form-control form-control-lg" />
                 <label class="form-label" for="typeEmailX">Username</label>
-              </div>
-
-              <div class="form-outline form-white mb-4">
-                <input type="Password" id="typePasswordX" class="form-control form-control-lg" />
-                <label class="form-label" for="typePasswordX">Password</label>
               </div>
 
               <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
