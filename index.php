@@ -25,7 +25,9 @@ die("Connection failed:" . $conn->connect_error);
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
+
 <body style="background-color: #eee;">
+
 <div>
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
@@ -65,6 +67,7 @@ die("Connection failed:" . $conn->connect_error);
               </div>
 
               <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
+
 
             </div>
 
