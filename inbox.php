@@ -34,7 +34,7 @@ die("Connection failed:" . $conn->connect_error);
     </div>
     <ul class="nav navbar-nav">
         <li><a href="/">Login</a></li>
-        <li><a href="/">My Profile</a></li>
+        <li><a href="/profile.php">My Profile</a></li>
       <li><a href="/">Appointments</a></li>
       <li><a href="/inbox.php">Inbox</a></li>
     </ul>
