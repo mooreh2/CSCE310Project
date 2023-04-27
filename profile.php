@@ -15,6 +15,7 @@ die("Connection failed:" . $conn->connect_error);
 
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,55 +45,52 @@ die("Connection failed:" . $conn->connect_error);
 <br/><br/><br/>
 
 
+
 <div class="container d-flex justify-content-center">
   <div class="page-header">
-    <h1 class="text-center">Inbox</h1>
+    <h1 class="text-center">Profile</h1>
   </div>
 		<ul class="list-group mt-5 text-white">
 
 		  <li class="list-group-item d-flex justify-content-between align-content-center">
-        <a href="/message.php">
-        <div class="d-flex flex-row">
+		  	<div class="d-flex flex-row">
 		  		<div class="ml-2">
-		  			<h3 class="mb-0">John Smith</h3>
+		  			<h3 class="mb-0">Register</h3>
 		  			<div class="about">
-		  				<span>Last Message: Jan 21, 2020</span>
+		  				<span>Click here to register</span>
 		  			</div>
 		  		</div>
 		  	</div>
 		  </li>
 
       <li class="list-group-item d-flex justify-content-between align-content-center">
-      <a href="/message.php">
-      <div class="d-flex flex-row">
+        <div class="d-flex flex-row">
           <div class="ml-2">
-            <h3 class="mb-0">John Smith</h3>
+            <h3 class="mb-0">Login</h3>
             <div class="about">
-              <span>Last Message: Jan 21, 2020</span>
+              <span>Click here to login</span>
             </div>
           </div>
         </div>
       </li>
 
       <li class="list-group-item d-flex justify-content-between align-content-center">
-        <a href="/message.php">
         <div class="d-flex flex-row">
           <div class="ml-2">
-            <h3 class="mb-0">John Smith</h3>
+            <h3 class="mb-0">Update Profiles</h3>
             <div class="about">
-              <span>Last Message: Jan 21, 2020</span>
+              <span>Click here to update profile</span>
             </div>
           </div>
         </div>
       </li>
       
       <li class="list-group-item d-flex justify-content-between align-content-center">
-        <a href="/message.php">
         <div class="d-flex flex-row">
           <div class="ml-2">
-            <h3 class="mb-0">John Smith</h3>
+            <h3 class="mb-0">Delete Account</h3>
             <div class="about">
-              <span>Last Message: Jan 21, 2020</span>
+              <span>Click here if you want to delete your account. This action cannot be undone.</span>
             </div>
           </div>
         </div>

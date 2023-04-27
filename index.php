@@ -45,9 +45,9 @@ $result = $result->fetch_all();
     </div>
     <ul class="nav navbar-nav">
         <li><a href="/">Login</a></li>
-        <li><a href="/">My Profile</a></li>
-        <li><a href="/">Appointments</a></li>
-        <li><a href="/inbox.php">Inbox</a></li>
+        <li><a href="/profile.php">My Profile</a></li>
+      <li><a href="/">Appointments</a></li>
+      <li><a href="/inbox.php">Inbox</a></li>
     </ul>
   </div>
 </nav>
