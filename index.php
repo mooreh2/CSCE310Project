@@ -17,6 +17,7 @@ if($conn -> connect_error) {
   die("Connection failed:" . $conn->connect_error);
 }
 
+// Retrieving user information to match user's typed username with db
 $sql = "SELECT * FROM `user`;";
 $result = $conn->query($sql);
 $result = $result->fetch_all();
@@ -54,11 +55,27 @@ $result = $result->fetch_all();
 </div>
 <br></br><br></br>
 
-<!-- Testing query results -->
+<!-- 
+  PHP area 
+  After user click's submit, run through existing user's in db
+  and check to see if the entered username matches
+-->
 <?php
-  foreach($result as $a) {
-    echo '<strong>Username</strong>: ' .$a[3];
-    echo '<br/>';
+  if(isset($_POST['submit'])) {
+    $typedUser = $_POST['typedUser'];
+    $found = false;
+    foreach($result as $a) {
+      if ($typedUser == $a[3]) {
+        // In this section we will pass the user along to their profile page
+        $found = true;
+        // TODO: Change url to profile url once that's available
+        echo "<script> location.href='/inbox.php'; </script>";
+        exit;
+      }
+    }
+    if (!$found) {
+      echo 'ERROR: Please enter a valid username.</br>';
+    }
   }
 ?>
 
@@ -73,17 +90,14 @@ $result = $result->fetch_all();
 
               <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
               <p class="text-white-50 mb-5">Please enter your username.</p>
-
-              <div class="form-outline form-white mb-4">
-                <input type="Username" id="typeEmailX" class="form-control form-control-lg" />
-                <label class="form-label" for="typeEmailX">Username</label>
-              </div>
-
-              <button class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
-
-
+              <form method="post">
+                <div class="form-outline form-white mb-4">
+                  <input name="typedUser" type="Username" id="typeEmailX" class="form-control form-control-lg" />
+                  <label class="form-label" for="typeEmailX">Username</label>
+                </div>
+                <button name="submit" class="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
+              </form>
             </div>
-
           </div>
         </div>
       </div>
