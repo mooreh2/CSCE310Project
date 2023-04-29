@@ -65,12 +65,12 @@ die("Connection failed:" . $conn->connect_error);
 		  </li>
 
       <li class="list-group-item d-flex justify-content-between align-content-center">
-        <a href="/index.php">
+        <a href="/">
         <div class="d-flex flex-row">
           <div class="ml-2">
-            <h3 class="mb-0">Login</h3>
+            <h3 class="mb-0">Sign Out</h3>
             <div class="about">
-              <span>Click here to login</span>
+              <span>Click here to sign out</span>
             </div>
           </div>
         </div>
@@ -80,23 +80,24 @@ die("Connection failed:" . $conn->connect_error);
         <a href="/update_profile.php">
         <div class="d-flex flex-row">
           <div class="ml-2">
-            <h3 class="mb-0">Update Profiles</h3>
+            <h3 class="mb-0">Update Profile</h3>
             <div class="about">
-              <span>Click here to update profile</span>
+              <span>Click here to update your profile</span>
             </div>
           </div>
         </div>
       </li>
       
       <li class="list-group-item d-flex justify-content-between align-content-center">
+        <a href="/">  
         <div class="d-flex flex-row">
-          <div class="ml-2">
-            <h3 class="mb-0">Delete Account</h3>
-            <div class="about">
-              <span>Click here if you want to delete your account. This action cannot be undone.</span>
+            <div class="ml-2">
+              <h3 class="mb-0">Delete Account</h3>
+              <div class="about">
+                <span>Click here if you want to delete your account. This action cannot be undone.</span>
+              </div>
             </div>
           </div>
-        </div>
       </li>
 
 		</ul>

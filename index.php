@@ -69,7 +69,7 @@ $result = $result->fetch_all();
         // In this section we will pass the user along to their profile page
         $found = true;
         // TODO: Change url to profile url once that's available
-        echo "<script> location.href='/inbox.php'; </script>";
+        echo "<script> location.href='/profile.php'; </script>";
         exit;
       }
     }
