@@ -13,17 +13,21 @@ if($conn -> connect_error) {
   die("Connection failed:" . $conn->connect_error);
 }
 
-$currentUsername = $_POST['typedUser'];
+session_start();
 
-$sql = "SELECT * FROM `user`;";
-$result = $conn->query($sql);
-$result = $result->fetch_all();
-foreach($result as $a) {
-  if ($currentUsername == $a[3]) {
-    $currentUser = $a;
-    break;
-  }
-}
+$currentUser = $_SESSION['typedUser'];
+echo 'RIGHT HERE</br>';
+echo $currentUser[1];
+
+// $sql = "SELECT * FROM `user`;";
+// $result = $conn->query($sql);
+// $result = $result->fetch_all();
+// foreach($result as $a) {
+//   if ($currentUsername == $a[3]) {
+//     $currentUser = $a;
+//     break;
+//   }
+// }
 
 ?>
 

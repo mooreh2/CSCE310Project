@@ -68,8 +68,10 @@ $result = $result->fetch_all();
       if ($typedUser == $a[3]) {
         // In this section we will pass the user along to their profile page
         $found = true;
-        // TODO: Change url to profile url once that's available
-        echo "<script> location.href='/profile.php'; </script>";
+        session_start();
+        $_SESSION['typedUser'] = $a;
+        
+        header('Location: /profile.php');
         exit;
       }
     }
@@ -90,7 +92,7 @@ $result = $result->fetch_all();
 
               <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
               <p class="text-white-50 mb-5">Please enter your username.</p>
-              <form method="post" action="/profile.php">
+              <form method="post">
                 <div class="form-outline form-white mb-4">
                   <input name="typedUser" type="Username" id="typeEmailX" class="form-control form-control-lg" />
                   <label class="form-label" for="typeEmailX">Username</label>
