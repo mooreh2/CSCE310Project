@@ -2,19 +2,22 @@
 
 $servername = "localhost";
 $username = "root";
+$password = "";
+$dbName = "csce_310_punch";
 
 // Create connection
-$conn = new mysqli($servername, $username);
+$conn = new mysqli($servername, $username, $password, $dbName);
 
 // Check connection
-if($conn -> connect_error)
-{
-die("Connection failed:" . $conn->connect_error);
-
+if($conn -> connect_error) {
+  die("Connection failed:" . $conn->connect_error);
 }
 
+session_start();
+$currentUser = $_SESSION['typedUser'];
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,58 +47,59 @@ die("Connection failed:" . $conn->connect_error);
 <br/><br/><br/>
 
 
+
 <div class="container d-flex justify-content-center">
   <div class="page-header">
-    <h1 class="text-center">Inbox</h1>
+    <h1 class="text-center"><?php echo $currentUser[1] .' ' .$currentUser[2] .'\'s Profile';?></h1>
   </div>
 		<ul class="list-group mt-5 text-white">
 
 		  <li class="list-group-item d-flex justify-content-between align-content-center">
-        <a href="/message.php">
-        <div class="d-flex flex-row">
+      <a href="/registration.php">
+		  	<div class="d-flex flex-row">
 		  		<div class="ml-2">
-		  			<h3 class="mb-0">John Smith</h3>
+		  			<h3 class="mb-0">Register</h3>
 		  			<div class="about">
-		  				<span>Last Message: Jan 21, 2020</span>
+		  				<span>Click here to register</span>
 		  			</div>
 		  		</div>
 		  	</div>
 		  </li>
 
       <li class="list-group-item d-flex justify-content-between align-content-center">
-      <a href="/message.php">
-      <div class="d-flex flex-row">
+        <a href="/">
+        <div class="d-flex flex-row">
           <div class="ml-2">
-            <h3 class="mb-0">John Smith</h3>
+            <h3 class="mb-0">Sign Out</h3>
             <div class="about">
-              <span>Last Message: Jan 21, 2020</span>
+              <span>Click here to sign out</span>
             </div>
           </div>
         </div>
       </li>
 
       <li class="list-group-item d-flex justify-content-between align-content-center">
-        <a href="/message.php">
+        <a href="/update_profile.php">
         <div class="d-flex flex-row">
           <div class="ml-2">
-            <h3 class="mb-0">John Smith</h3>
+            <h3 class="mb-0">Update Profile</h3>
             <div class="about">
-              <span>Last Message: Jan 21, 2020</span>
+              <span>Click here to update your profile</span>
             </div>
           </div>
         </div>
       </li>
       
       <li class="list-group-item d-flex justify-content-between align-content-center">
-        <a href="/message.php">
+        <a href="/">  
         <div class="d-flex flex-row">
-          <div class="ml-2">
-            <h3 class="mb-0">John Smith</h3>
-            <div class="about">
-              <span>Last Message: Jan 21, 2020</span>
+            <div class="ml-2">
+              <h3 class="mb-0">Delete Account</h3>
+              <div class="about">
+                <span>Click here if you want to delete your account. This action cannot be undone.</span>
+              </div>
             </div>
           </div>
-        </div>
       </li>
 
 		</ul>
