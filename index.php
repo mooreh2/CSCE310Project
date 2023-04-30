@@ -90,7 +90,7 @@ $result = $result->fetch_all();
 
               <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
               <p class="text-white-50 mb-5">Please enter your username.</p>
-              <form method="post">
+              <form method="post" action="/profile.php">
                 <div class="form-outline form-white mb-4">
                   <input name="typedUser" type="Username" id="typeEmailX" class="form-control form-control-lg" />
                   <label class="form-label" for="typeEmailX">Username</label>

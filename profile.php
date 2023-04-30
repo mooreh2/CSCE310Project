@@ -2,17 +2,28 @@
 
 $servername = "localhost";
 $username = "root";
+$password = "";
+$dbName = "csce_310_punch";
 
 // Create connection
-$conn = new mysqli($servername, $username);
+$conn = new mysqli($servername, $username, $password, $dbName);
 
 // Check connection
-if($conn -> connect_error)
-{
-die("Connection failed:" . $conn->connect_error);
-
+if($conn -> connect_error) {
+  die("Connection failed:" . $conn->connect_error);
 }
 
+$currentUsername = $_POST['typedUser'];
+
+$sql = "SELECT * FROM `user`;";
+$result = $conn->query($sql);
+$result = $result->fetch_all();
+foreach($result as $a) {
+  if ($currentUsername == $a[3]) {
+    $currentUser = $a;
+    break;
+  }
+}
 
 ?>
 
@@ -48,7 +59,7 @@ die("Connection failed:" . $conn->connect_error);
 
 <div class="container d-flex justify-content-center">
   <div class="page-header">
-    <h1 class="text-center">Profile</h1>
+    <h1 class="text-center"><?php echo $currentUser[1] .' ' .$currentUser[2] .'\'s Profile';?></h1>
   </div>
 		<ul class="list-group mt-5 text-white">
 
