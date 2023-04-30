@@ -6,6 +6,7 @@
 }
 
 .schedule-body {
+    margin: auto;
     margin-top: 100px;
     width: 70%;
     text-align: center;
@@ -13,13 +14,13 @@
 }
 
 .h1 {
-    text-align: center;
-    margin-top: 80px;
+    margin-top: 100px;
 }
 
-.th {
-    
+.container {
+    width: 80%;
 }
+
 
 .create-appt-btn {
     margin-top: 50px;

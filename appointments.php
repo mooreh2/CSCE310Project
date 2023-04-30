@@ -42,38 +42,76 @@ die("Connection failed:" . $conn->connect_error);
   </div>
 </nav>
 
-<h1 class="text-center">Appointments</h1>
 
-<div class="schedule-body">
-    <table class="table">
-        <thead class="thead-dark">
-            <tr>
-                <th style="text-align:center">Date</th>
-                <th style="text-align:center">Time</th>
-                <th style="text-align:center">User</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>Date1</td>
-                <td>Time1</td>
-                <td>User1</td>
-            </tr>
-            <tr>
-                <td>Date2</td>
-                <td>Time2</td>
-                <td>User2</td>
-            </tr>
-            <tr>
-                <td>Date3</td>
-                <td>Time3</td>
-                <td>User3</td>
-            </tr>
-        </tbody>
-    </table>
+<div class="container d-flex justify-content-center">
+  <div class="page-header">
+    <h1 class="text-center">Appointments</h1>
+  </div>
+    <ul class="list-group mt-5 text-white">
+
+		<li class="list-group-item d-flex justify-content-between align-content-center">
+        <a href="/update_appointment.php">
+        <div class="d-flex flex-row">
+            <div class="ml-2">
+                <h3 class="mb-0">John Smith</h3>
+                <div class="about">
+                    <span>Date: Jan 21, 2020</span>
+                </div>
+                    <div class="about">
+                    <span>Time: 3:00 pm</span>
+                </div>
+            </div>
+		</div>
+		</li>
+
+      <li class="list-group-item d-flex justify-content-between align-content-center">
+      <a href="/update_appointment.php">
+      <div class="d-flex flex-row">
+          <div class="ml-2">
+            <h3 class="mb-0">John Smith</h3>
+            <div class="about">
+		  		<span>Date: Jan 21, 2020</span>
+			</div>
+            <div class="about">
+		  	    <span>Time: 3:00 pm</span>
+		  	</div>
+          </div>
+        </div>
+      </li>
+
+      <li class="list-group-item d-flex justify-content-between align-content-center">
+        <a href="/update_appointment.php">
+        <div class="d-flex flex-row">
+          <div class="ml-2">
+            <h3 class="mb-0">John Smith</h3>
+            <div class="about">
+		  	    <span>Date: Jan 21, 2020</span>
+		  	</div>
+            <div class="about">
+		  		<span>Time: 3:00 pm</span>
+		  	</div>
+          </div>
+        </div>
+      </li>
+      
+      <li class="list-group-item d-flex justify-content-between align-content-center">
+        <a href="/update_appointment.php">
+        <div class="d-flex flex-row">
+          <div class="ml-2">
+            <h3 class="mb-0">John Smith</h3>
+            <div class="about">
+		  		<span>Date: Jan 21, 2020</span>
+			</div>
+            <div class="about">
+    			<span>Time: 3:00 pm</span>
+  			</div>
+          </div>
+        </div>
+      </li>
+
+		</ul>
+    <a href="/create_appointment.php" class="create-apt-btn" role="button">Create Appointment</a>
 </div>
-
-<button class="create-apt-btn">Create Appointment</button>
 
 </body>
 </html>
