@@ -69,8 +69,8 @@ if(isset($_POST['submit'])) {
       <ul class="nav navbar-nav">
           <li><a href="/">Login</a></li>
           <li><a href="/profile.php">My Profile</a></li>
-        <li><a href="/">Appointments</a></li>
-        <li><a href="/inbox.php">Inbox</a></li>
+          <li><a href="/">Appointments</a></li>
+          <li><a href="/inbox.php">Inbox</a></li>
       </ul>
     </div>
   </nav>
@@ -83,9 +83,7 @@ if(isset($_POST['submit'])) {
         <div class="col-12 col-md-8 col-lg-6 col-xl-5">
           <div class="card bg-dark text-white" style="border-radius: 1rem;">
             <div class="card-body p-5 text-center">
-
               <div class="mb-md-5 mt-md-4 pb-5">
-
                 <h2 class="fw-bold mb-2 text-uppercase">Login</h2>
                 <p class="text-white-50 mb-5">Please enter your username.</p>
                 <form method="post">

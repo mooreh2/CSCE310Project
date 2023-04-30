@@ -13,11 +13,6 @@ if($conn -> connect_error) {
   die("Connection failed:" . $conn->connect_error);
 }
 
-// Check connection
-if($conn -> connect_error) {
-  die("Connection failed:" . $conn->connect_error);
-}
-
 // Grabbing the current user from previous page
 session_start();
 $currentUser = $_SESSION['typedUser'];
@@ -61,7 +56,7 @@ foreach($usersWithMessages as $b) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Home</title>
+  <title>Inbox</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -78,8 +73,8 @@ foreach($usersWithMessages as $b) {
     <ul class="nav navbar-nav">
         <li><a href="/">Login</a></li>
         <li><a href="/profile.php">My Profile</a></li>
-      <li><a href="/">Appointments</a></li>
-      <li><a href="/inbox.php">Inbox</a></li>
+        <li><a href="/">Appointments</a></li>
+        <li><a href="/inbox.php">Inbox</a></li>
     </ul>
   </div>
 </nav>

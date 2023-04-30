@@ -2,23 +2,25 @@
 
 $servername = "localhost";
 $username = "root";
+$password = "";
+$dbName = "csce_310_punch";
 
 // Create connection
-$conn = new mysqli($servername, $username);
+$conn = new mysqli($servername, $username, $password, $dbName);
 
 // Check connection
-if($conn -> connect_error)
-{
-die("Connection failed:" . $conn->connect_error);
-
+if($conn -> connect_error) {
+  die("Connection failed:" . $conn->connect_error);
 }
 
+session_start();
+$currentUser = $_SESSION['typedUser'];
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Home</title>
+  <title>Messages</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -50,7 +52,7 @@ die("Connection failed:" . $conn->connect_error);
           <div class="col-md-6">
             <div class="card card-bordered">
               <div class="card-header">
-                <h4 class="card-title"><strong>Chat with "INSERT NAME HERE"</strong></h4>
+                <h4 class="card-title"><strong><?php echo $currentUser[1] .' ' .$currentUser[2] .'\'s ';?>Chat with "INSERT NAME HERE"</strong></h4>
               </div>
 
 
