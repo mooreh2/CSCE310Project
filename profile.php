@@ -18,6 +18,7 @@ $currentUser = $_SESSION['typedUser'];
 
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
