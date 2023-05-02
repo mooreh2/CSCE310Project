@@ -13,10 +13,13 @@ if($conn -> connect_error) {
   die("Connection failed:" . $conn->connect_error);
 }
 
+// Collecting variables being passed
 session_start();
 $currentUser = $_SESSION['typedUser'];
+$otherUserFirstName = $_SESSION['otherUserFirstName'];
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -52,7 +55,7 @@ $currentUser = $_SESSION['typedUser'];
           <div class="col-md-6">
             <div class="card card-bordered">
               <div class="card-header">
-                <h4 class="card-title"><strong><?php echo $currentUser[1] .' ' .$currentUser[2] .'\'s ';?>Chat with "INSERT NAME HERE"</strong></h4>
+                <h4 class="card-title"><strong><?php echo $currentUser[1] .' ' .$currentUser[2] .'\'s Chat with ' .$otherUserFirstName;?></strong></h4>
               </div>
 
 
