@@ -18,6 +18,22 @@ session_start();
 $currentUser = $_SESSION['typedUser'];
 $otherUserFirstName = $_SESSION['otherUserFirstName'];
 
+// Querying users to match passed on first name
+$sql = "SELECT * FROM `user`;";
+$users = $conn->query($sql);
+$users = $users->fetch_all();
+
+// Based off of passed along user, match with full user data type in db
+
+foreach($users as $user) {
+  if ($user[1] == $otherUserFirstName) {
+    $otherUser = $user;
+    break;
+  }
+}
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -55,7 +71,7 @@ $otherUserFirstName = $_SESSION['otherUserFirstName'];
           <div class="col-md-6">
             <div class="card card-bordered">
               <div class="card-header">
-                <h4 class="card-title"><strong><?php echo $currentUser[1] .' ' .$currentUser[2] .'\'s Chat with ' .$otherUserFirstName;?></strong></h4>
+                <h4 class="card-title"><strong><?php echo $currentUser[1] .' ' .$currentUser[2] .'\'s Chat with ' .$otherUser[1] .' ' .$otherUser[2];?></strong></h4>
               </div>
 
 
