@@ -78,7 +78,7 @@ $result = $result->fetch_all();
 
 <div class="container">  
     <button ><a href="blog.php"
-    class="text-light">Add user</a>
+    class="text-light">Add Post</a>
     </button>
 
     <table class="table">
