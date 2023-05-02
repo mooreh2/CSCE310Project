@@ -68,12 +68,21 @@ if(isset($_POST['delete'])) {
 
   // The page will automatically refresh thanks to line below
   header('Location: /message.php');
-  exit;
-  
+  exit; 
 }
 
 // UPDATE QUERY
 // If the user hits the update button, they should be able to update the specific message's contents
+if (isset($_POST['update'])) {
+  $updateMessage = $_POST['msgToBeUpdated'];
+  
+  session_start();
+  $_SESSION['msgToBeUpdated'] = $updateMessage;
+
+  header('Location: /update_message.php');
+  exit;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -130,7 +139,7 @@ if(isset($_POST['delete'])) {
                         echo '<p><u>' .$currentSenderFName .' ' .$currentSenderLName .':</u> ' .$msg[3] .'
                             <span class="publisher bt-1">
                               <form method="post">
-                                <input type="hidden" name="msgToBeUpdated" value=' .$msg[0] .'>
+                                <input type="hidden" name="msgToBeUpdated" value=' . $msg[0] .'>
                                 <button name="update" class="publisher-input">Update</button>
                               </form>
                               <form method="post">
