@@ -107,6 +107,7 @@ if(isset($_POST['submit'])) {
             <li><a href="/profile.php">My Profile</a></li>
             <li><a href="/">Appointments</a></li>
             <li><a href="/inbox.php">Inbox</a></li>
+            <li><a href="/display_blog.php">Post</a></li>
         </ul>
       </div>
     </nav>
