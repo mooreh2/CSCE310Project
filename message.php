@@ -119,8 +119,20 @@ if (isset($_POST['update'])) {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <style>
+    .fa {
+      font-size: 30px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .fa:hover {
+      color: darkblue;
+    }
+  </style>
 </head>
 
 <body style="background-color: #eee;">
@@ -164,7 +176,32 @@ if (isset($_POST['update'])) {
                               break;
                             }
                           }
-                          echo '<p><u>' .$currentSenderFName .' ' .$currentSenderLName .':</u> ' .$msg[3] .'
+                          // If block will service admin users
+                          if ($currentUser[7]) {
+                            echo '<p><u>' .$currentSenderFName .' ' .$currentSenderLName .':</u> ' .$msg[3] .'
+                              <span class="publisher bt-1">
+                                <form method="post">
+                                  <input type="hidden" name="msgToBeUpdated" value=' . $msg[0] .'>
+                                  <button name="update" class="publisher-input">Update</button>
+                                </form>
+                                <form method="post">
+                                  <input type="hidden" name="msgToBeDeleted" value=' . $msg[0] . '>
+                                  <button name="delete" class="publisher-input">Delete</button>
+                                </form>
+                              
+                                <i onclick="myFunction(this)" class="fa fa-thumbs-up"></i>
+                                <script>
+                                  function myFunction(x) {
+                                    x.classList.toggle("fa-thumbs-down");
+                                  }
+                                </script>
+                              </span></p>
+                            '
+                            ;
+                          }
+                          // Else block will service normal users
+                          else {
+                            echo '<p><u>' .$currentSenderFName .' ' .$currentSenderLName .':</u> ' .$msg[3] .'
                               <span class="publisher bt-1">
                                 <form method="post">
                                   <input type="hidden" name="msgToBeUpdated" value=' . $msg[0] .'>
@@ -175,9 +212,9 @@ if (isset($_POST['update'])) {
                                   <button name="delete" class="publisher-input">Delete</button>
                                 </form>
                               </span></p>
-                            </form>
                             '
-                          ;
+                            ;
+                          }
                         }
                       ?>
                     </div>
