@@ -19,12 +19,11 @@ $currentUser = $_SESSION['typedUser'];
 $otherUserFirstName = $_SESSION['otherUserFirstName'];
 
 // Querying users to match passed on first name
-$sql = "SELECT * FROM `user`;";
-$users = $conn->query($sql);
+$userSql = "SELECT * FROM `user`;";
+$users = $conn->query($userSql);
 $users = $users->fetch_all();
 
 // Based off of passed along user, match with full user data type in db
-
 foreach($users as $user) {
   if ($user[1] == $otherUserFirstName) {
     $otherUser = $user;
@@ -32,7 +31,10 @@ foreach($users as $user) {
   }
 }
 
-
+// Query messages between these two users
+$msgSql = "SELECT * FROM `message` WHERE ((`SenderID`=$currentUser[0] AND `ReceiverId`=$otherUser[0]) OR (`SenderID`=$otherUser[0] AND `ReceiverId`=$currentUser[0]))";
+$msgs = $conn->query($msgSql);
+$msgs = $msgs->fetch_all();
 
 ?>
 
@@ -77,27 +79,23 @@ foreach($users as $user) {
 
               <div class="ps-container ps-theme-default ps-active-y" id="chat-content" style="overflow-y: scroll !important; height:400px !important;">
                 <div class="media media-chat">
-                  <img class="avatar" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="...">
                   <div class="media-body">
-                    <p>Hi, how are you?</p>
+                    <?php 
+                      foreach($msgs as $msg) {
+                        foreach($users as $user) {
+                          if($user[0] == $msg[1]) {
+                            $currentSenderFName = $user[1];
+                            $currentSenderLName = $user[2];
+                            break;
+                          }
+                        }
+                        echo '<p><u>' .$currentSenderFName .' ' .$currentSenderLName .':</u> ' .$msg[3] .'</p>';
+                      }
+                    ?>
                   </div>
                 </div>
 
 
-                <div class="media media-chat media-chat-reverse">
-                  <img class="avatar" src="https://img.icons8.com/color/36/000000/administrator-female.png" alt="...">
-                  <div class="media-body">
-                    <p>Hi, I'm good.</p>
-                    <p>How are you doing?</p>
-                  </div>
-                </div>
-
-                <div class="media media-chat">
-                  <img class="avatar" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="...">
-                  <div class="media-body">
-                    <p>That's great. I'm doing well, too.</p>
-                  </div>
-                </div>
 
 
               <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;"><div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; height: 0px; right: 2px;"><div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 2px;"></div></div></div>
