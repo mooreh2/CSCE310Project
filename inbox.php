@@ -39,28 +39,28 @@ $msgResult = $msgResult->fetch_all();
 
 // Querying users from db
 $userSql = "SELECT * FROM `user`;";
-$userResult = $conn->query($userSql);
-$userResult = $userResult->fetch_all();
+$userResults = $conn->query($userSql);
+$userResults = $userResults->fetch_all();
 
 // Finding the user's the current user has messages with
-$usersWithMessagesDup = [];
+$usersWithMessagesDuplicates = [];
 $usersWithMessages = [];
-foreach($msgResult as $a) {
+foreach($msgResult as $msg) {
   // Cross checking sender IDs with current user's ID
-  if ($a[1] == $currentUser[0]) {
+  if ($msg[1] == $currentUser[0]) {
     // Add the recipeient's id to array (note this array could have duplicates)
-    array_push($usersWithMessagesDup, $a[2]);
+    array_push($usersWithMessagesDuplicates, $msg[2]);
   }
 }
 // Use array_unique to remove duplicates
-$usersWithMessages = array_unique($usersWithMessagesDup);
+$usersWithMessages = array_unique($usersWithMessagesDuplicates);
 
 // Based off of user IDs stored in above array, fill array with actual user datatypes of those users
 $usersWithMessagesAsUsers = [];
-foreach($usersWithMessages as $b) {
-  foreach($userResult as $c) {
-    if ($b == $c[0]) {
-      array_push($usersWithMessagesAsUsers, $c);
+foreach($usersWithMessages as $user) {
+  foreach($userResults as $userResult) {
+    if ($user == $userResult[0]) {
+      array_push($usersWithMessagesAsUsers, $userResult);
     }
   }
 }
@@ -123,15 +123,15 @@ if(isset($_POST['submit'])) {
           Within the for loop, the echo command can be used to return html code.
         -->
         <?php
-          foreach($usersWithMessagesAsUsers as $d) {
+          foreach($usersWithMessagesAsUsers as $desiredUser) {
             echo '<li class="list-group-item d-flex justify-content-between align-content-center">
               
               <div class="d-flex flex-row">
                 <div class="ml-2">
-                  <h3 class="mb-0">' .$d[1] .' ' .$d[2] .'</h3>
+                  <h3 class="mb-0">' .$desiredUser[1] .' ' .$desiredUser[2] .'</h3>
                   <div class="about">
                     <form method="post">
-                      <input type="hidden" id="postId" name="postId" value=' .$d[1] .'>
+                      <input type="hidden" id="postId" name="postId" value=' .$desiredUser[1] .'>
                       <button name="submit" class="btn btn-outline-light btn-lg px-5" type="submit">Click to view messages</button>
                     </form>
                   </div>

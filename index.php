@@ -27,9 +27,9 @@ if($conn -> connect_error) {
 }
 
 // Retrieving user information to match user's typed username with db
-$sql = "SELECT * FROM `user`;";
-$result = $conn->query($sql);
-$result = $result->fetch_all();
+$userSql = "SELECT * FROM `user`;";
+$userResults = $conn->query($userSql);
+$userResults = $userResults->fetch_all();
 
 
 // After user click's submit button, run through existing user's in db
@@ -38,12 +38,12 @@ if(isset($_POST['submit'])) {
   // The POST variable holds the text the user typed into the username textbox
   $typedUser = $_POST['typedUser'];
   $found = false;
-  foreach($result as $a) {
-    if ($typedUser == $a[3]) {
+  foreach($userResults as $result) {
+    if ($typedUser == $result[3]) {
       // Found a match -> set bool to true, start session to pass user to next page, send user ot profile page
       $found = true;
       session_start();
-      $_SESSION['typedUser'] = $a;
+      $_SESSION['typedUser'] = $result;
       
       header('Location: /profile.php');
       exit;
