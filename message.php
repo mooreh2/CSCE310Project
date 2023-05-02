@@ -36,6 +36,44 @@ $msgSql = "SELECT * FROM `message` WHERE ((`SenderID`=$currentUser[0] AND `Recei
 $msgs = $conn->query($msgSql);
 $msgs = $msgs->fetch_all();
 
+// INSERT QUERY
+// If the user sends a message, the database must update, and that message should be displayed
+if(isset($_POST['send'])) {
+  $newMessage = $_POST['addedContent'];
+  // Send a query to the db with a new message
+  $insertSql = "INSERT INTO message (`SenderID`, `ReceiverID`, `Content`)
+  VALUES ('$currentUser[0]', '$otherUser[0]', '$newMessage')";
+
+  // Error checking
+  if (!($conn->query($insertSql) === TRUE)) {
+    echo "Error: " . $insertSQL . "<br>" . $conn->error;
+  }
+
+  // The page will automatically refresh thanks to line below
+  header('Location: /message.php');
+  exit;
+}
+
+// DELETE QUERY
+// If the user hits the delete button, the given message should be removed
+if(isset($_POST['delete'])) {
+  $deletedMessage = $_POST['msgToBeDeleted'];
+
+  $deleteQuery = "DELETE FROM message
+  WHERE `MessageID` = '$deletedMessage'";
+
+  if (!($conn->query($deleteQuery) === TRUE)) {
+    echo "Error: " . $deleteQuery . "<br>" . $conn->error;
+  }
+
+  // The page will automatically refresh thanks to line below
+  header('Location: /message.php');
+  exit;
+  
+}
+
+// UPDATE QUERY
+// If the user hits the update button, they should be able to update the specific message's contents
 ?>
 
 <!DOCTYPE html>
@@ -89,24 +127,33 @@ $msgs = $msgs->fetch_all();
                             break;
                           }
                         }
-                        echo '<p><u>' .$currentSenderFName .' ' .$currentSenderLName .':</u> ' .$msg[3] .'</p>';
+                        echo '<p><u>' .$currentSenderFName .' ' .$currentSenderLName .':</u> ' .$msg[3] .'
+                            <span class="publisher bt-1">
+                              <form method="post">
+                                <input type="hidden" name="msgToBeUpdated" value=' .$msg[0] .'>
+                                <button name="update" class="publisher-input">Update</button>
+                              </form>
+                              <form method="post">
+                                <input type="hidden" name="msgToBeDeleted" value=' . $msg[0] . '>
+                                <button name="delete" class="publisher-input">Delete</button>
+                              </form>
+                            </span></p>
+                          </form>
+                          '
+                        ;
                       }
                     ?>
                   </div>
                 </div>
 
-
-
-
               <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 0px;"><div class="ps-scrollbar-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; height: 0px; right: 2px;"><div class="ps-scrollbar-y" tabindex="0" style="top: 0px; height: 2px;"></div></div></div>
-
-              <div class="publisher bt-1 border-light">
-                <img class="avatar avatar-xs" src="https://img.icons8.com/color/36/000000/administrator-male.png" alt="...">
-                <input class="publisher-input" type="text" placeholder="Write something">
-                <a class="publisher-btn" href="#" data-abc="true"><i class="fa fa-smile"></i></a>
-                <a class="publisher-btn text-info" href="#" data-abc="true"><i class="fa fa-paper-plane"></i></a>
-              </div>
-
+              
+              <form method="post">
+                <div class="publisher bt-1 border-light">
+                  <input name="addedContent"class="publisher-input" type="text" placeholder="Write something">
+                  <button name="send" class="publisher-input" type="submit">Send</button>              
+                </div>
+              </form>
              </div>
           </div>
           </div>

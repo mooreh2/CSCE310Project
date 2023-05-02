@@ -54,7 +54,6 @@ foreach($usersWithMessages as $b) {
 // Based on clicked user, send info to messages.php
 if(isset($_POST['submit'])) {
   $otherUserFirstName = $_POST['postId'];
-  echo '</br></br></br></br></br><h1>TESTING</h1></br><h1>' .$otherUserFirstName .'</h1></br></br></br>';
   session_start();
   $_SESSION['otherUserFirstName'] = $otherUserFirstName;
   header('Location: /message.php');
