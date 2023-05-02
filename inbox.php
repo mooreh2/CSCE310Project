@@ -51,6 +51,15 @@ foreach($usersWithMessages as $b) {
   }
 }
 
+// Based on clicked user, send info to messages.php
+if(isset($_POST['submit'])) {
+  $otherUserFirstName = $_POST['postId'];
+  session_start();
+  $_SESSION['otherUserFirstName'] = $otherUserFirstName;
+  header('Location: /message.php');
+  exit;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -90,12 +99,15 @@ foreach($usersWithMessages as $b) {
       <?php
         foreach($usersWithMessagesAsUsers as $d) {
           echo '<li class="list-group-item d-flex justify-content-between align-content-center">
-            <a href="/message.php">
+            
             <div class="d-flex flex-row">
               <div class="ml-2">
                 <h3 class="mb-0">' .$d[1] .' ' .$d[2] .'</h3>
                 <div class="about">
-                  <span>Click to view messages</span>
+                  <form method="post">
+                    <input type="hidden" id="postId" name="postId" value=' .$d[1] .'>
+                    <button name="submit" class="btn btn-outline-light btn-lg px-5" type="submit">Click to view messages</button>
+                  </form>
                 </div>
               </div>
             </div>
