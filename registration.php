@@ -13,6 +13,54 @@ die("Connection failed:" . $conn->connect_error);
 
 }
 
+//session_start();
+//$currentUser = $_SESSION['typedUser'];
+//$otherUserFirstName = $_SESSION['otherUserFirstName'];
+//$otherUserLastName = $_SESSION['otherUserLastName'];
+
+$userSql = "Select * from `user`;";
+//$users = $conn->query($userSql);
+//$users = $users->fetch_all();
+$result = mysqli_query($conn, $userSql);
+if($result)
+{
+  while($row=mysqli_fetch_assoc($result))
+  {
+    $id = $row['UserID'];
+    //$adminid = $row['AdminID'];
+    $fname = $row['FName'];
+    $lname = $row['LName'];
+    echo '<button type="submit" class="registerbtn">Register</button>';
+  }
+}
+
+/*
+if ($conn->query($sql) === TRUE) {
+  echo "New record created successfully";
+} else {
+  echo "Error: " . $sql . "<br>" . $conn->error;
+}
+*/
+
+//INSERT
+/*
+if(isset($_POST['send'])) {
+  $newMessage = $_POST['addedContent'];
+  // Send a query to the db with a new message
+  $insertSql = "INSERT INTO user (`UserID`, `FName`, `LName`)
+  VALUES ('$currentUser', '$otherUserFirstName', '$otherUserLastName')";
+
+  // Error checking
+  if (!($conn->query($insertSql) === TRUE)) {
+    echo "Error: " . $insertSQL . "<br>" . $conn->error;
+  }
+
+  // The page will automatically refresh thanks to line below
+  //header('Location: /message.php');
+  exit;
+}
+*/
+
 
 ?>
 
@@ -49,17 +97,18 @@ die("Connection failed:" . $conn->connect_error);
     <p>Please fill in this form to create an account.</p>
     <hr>
 
-    <label for="email"><b>Email</b></label>
-    <input type="text" placeholder="Enter Email" name="email" id="email" required>
+    <label for="username"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="username" id="username" required>
 
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
+    <label for="fname"><b>First Name</b></label>
+    <input type="text" placeholder="Enter First Name" name="fname" id="fname" required>
 
-    <label for="psw-repeat"><b>Repeat Password</b></label>
-    <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
+    <label for="lname"><b>Last Name</b></label>
+    <input type="text" placeholder="Enter Last Name" name="lname" id="lname" required>
+
+
     <hr>
 
-    <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
     <button type="submit" class="registerbtn">Register</button>
   </div>
 

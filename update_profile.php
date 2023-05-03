@@ -13,6 +13,29 @@ die("Connection failed:" . $conn->connect_error);
 
 }
 
+$userSql = "Select * from `user`;";
+$users = $conn->query($userSql);
+$users = $users->fetch_all();
+$id = $_GET['updateUserID'];
+
+
+// UPDATE QUERY
+// If the user hits the update button, they should be able to update the specific message's contents
+if (isset($_POST['submit'])) {
+    //$id = $row['UserID'];
+    //$adminid = $row['AdminID'];
+    $fname = $row['FName'];
+    $lname = $row['LName'];
+    $sql = "update `user` set UserID=$id, FName='$fname', LName='$lname'";
+    $result = mysqli_query($con, $sql);
+    
+    session_start();
+    $_SESSION['profileToBeUpdated'] = $updateProfile;
+  
+    header('Location: /update_profile.php');
+    exit;
+  }
+
 
 ?>
 
@@ -55,15 +78,6 @@ die("Connection failed:" . $conn->connect_error);
                     <form class="form-horizontal">
                         <fieldset class="fieldset">
                             <h3 class="fieldset-title">Personal Info</h3>
-                            <div class="form-group avatar">
-                                <figure class="figure col-md-2 col-sm-3 col-xs-12">
-                                    <img class="img-rounded img-responsive" src="https://bootdey.com/img/Content/avatar/avatar1.png" alt="">
-                                </figure>
-                                <div class="form-inline col-md-10 col-sm-9 col-xs-12">
-                                    <input type="file" class="file-uploader pull-left">
-                                    <button type="submit" class="btn btn-sm btn-default-alt pull-left">Update Image</button>
-                                </div>
-                            </div>
                             <div class="form-group">
                                 <label class="col-md-2 col-sm-3 col-xs-12 control-label">User Name</label>
                                 <div class="col-md-10 col-sm-9 col-xs-12">
@@ -81,30 +95,6 @@ die("Connection failed:" . $conn->connect_error);
                                 <label class="col-md-2 col-sm-3 col-xs-12 control-label">Last Name</label>
                                 <div class="col-md-10 col-sm-9 col-xs-12">
                                     <input type="text" class="form-control">
-                                </div>
-                            </div>
-                        </fieldset>
-                        <fieldset class="fieldset">
-                            <h3 class="fieldset-title">Contact Info</h3>
-                            <div class="form-group">
-                                <label class="col-md-2  col-sm-3 col-xs-12 control-label">Email</label>
-                                <div class="col-md-10 col-sm-9 col-xs-12">
-                                    <input type="email" class="form-control">
-                                    <p class="help-block">Your email address</p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-2  col-sm-3 col-xs-12 control-label">Phone number</label>
-                                <div class="col-md-10 col-sm-9 col-xs-12">
-                                    <input type="text" class="form-control">
-                                    <p class="help-block">Your phone number</p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-2  col-sm-3 col-xs-12 control-label">Linkedin</label>
-                                <div class="col-md-10 col-sm-9 col-xs-12">
-                                    <input type="url" class="form-control">
-                                    <p class="help-block">eg. https://www.linkedin.com/in/yourname</p>
                                 </div>
                             </div>
                         </fieldset>
