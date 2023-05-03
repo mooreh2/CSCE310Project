@@ -2,9 +2,11 @@
 
 $servername = "localhost";
 $username = "root";
+$password = "";
+$dbName = "csce_310_punch";
 
 // Create connection
-$conn = new mysqli($servername, $username);
+$conn = new mysqli($servername, $username, $password, $dbName);
 
 // Check connection
 if($conn -> connect_error)
@@ -13,26 +15,26 @@ die("Connection failed:" . $conn->connect_error);
 
 }
 
-//session_start();
-//$currentUser = $_SESSION['typedUser'];
-//$otherUserFirstName = $_SESSION['otherUserFirstName'];
-//$otherUserLastName = $_SESSION['otherUserLastName'];
+// session_start();
+// $currentUser = $_SESSION['typedUser'];
+// $otherUserFirstName = $_SESSION['otherUserFirstName'];
+// $otherUserLastName = $_SESSION['otherUserLastName'];
 
-$userSql = "Select * from `user`;";
-//$users = $conn->query($userSql);
-//$users = $users->fetch_all();
-$result = mysqli_query($conn, $userSql);
-if($result)
-{
-  while($row=mysqli_fetch_assoc($result))
-  {
-    $id = $row['UserID'];
-    //$adminid = $row['AdminID'];
-    $fname = $row['FName'];
-    $lname = $row['LName'];
-    echo '<button type="submit" class="registerbtn">Register</button>';
-  }
-}
+// $userSql = "Select * from `user`;";
+// //$users = $conn->query($userSql);
+// //$users = $users->fetch_all();
+// $result = mysqli_query($conn, $userSql);
+// if($result)
+// {
+//   while($row=mysqli_fetch_assoc($result))
+//   {
+//     $id = $row['UserID'];
+//     //$adminid = $row['AdminID'];
+//     $fname = $row['FName'];
+//     $lname = $row['LName'];
+//     echo '<button type="submit" class="registerbtn">Register</button>';
+//   }
+// }
 
 /*
 if ($conn->query($sql) === TRUE) {
@@ -43,23 +45,29 @@ if ($conn->query($sql) === TRUE) {
 */
 
 //INSERT
-/*
+
 if(isset($_POST['send'])) {
-  $newMessage = $_POST['addedContent'];
-  // Send a query to the db with a new message
-  $insertSql = "INSERT INTO user (`UserID`, `FName`, `LName`)
-  VALUES ('$currentUser', '$otherUserFirstName', '$otherUserLastName')";
+  $newMessage = $_POST['username'];
+  $userID = $_POST['userid']
+  $adminID = $_POST['adminid']
+  $otherUserFirstName = $_POST['fname'];
+  $otherUserLastName = $_POST['lname'];
+  
+  
+  // // Send a query to the db with a new message
+  $insertSql = "insert into user (`UserID`, `AdminID`, `FName`, `LName`, `UserName`)
+  VALUES ('$userID', '$adminID', '$otherUserFirstName', '$otherUserLastName', '$newMessage')";
 
   // Error checking
   if (!($conn->query($insertSql) === TRUE)) {
-    echo "Error: " . $insertSQL . "<br>" . $conn->error;
+    echo "Error: " . $insertSql . "<br>" . $conn->error;
   }
 
   // The page will automatically refresh thanks to line below
-  //header('Location: /message.php');
+  header('Location: /profile.php');
   exit;
 }
-*/
+
 
 
 ?>
@@ -91,11 +99,17 @@ if(isset($_POST['send'])) {
 </nav>
 </br></br></br></br>
 
-<form action="profile.php">
+<form method="post">
   <div class="container">
     <h1>Register</h1>
     <p>Please fill in this form to create an account.</p>
     <hr>
+
+    <label for="username"><b>User ID number</b></label>
+    <input type="text" placeholder="Enter a number" name="userid" id="userid" required>
+
+    <label for="username"><b>Admin ID number</b></label>
+    <input type="text" placeholder="Enter a number" name="adminid" id="adminid" required>
 
     <label for="username"><b>Username</b></label>
     <input type="text" placeholder="Enter Username" name="username" id="username" required>
@@ -109,7 +123,7 @@ if(isset($_POST['send'])) {
 
     <hr>
 
-    <button type="submit" class="registerbtn">Register</button>
+    <button name="send" type="submit" class="registerbtn">Register</button>
   </div>
 
 </form>
