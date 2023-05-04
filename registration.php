@@ -47,16 +47,18 @@ if ($conn->query($sql) === TRUE) {
 //INSERT
 
 if(isset($_POST['send'])) {
-  $newMessage = $_POST['username'];
-  $userID = $_POST['userid']
-  $adminID = $_POST['adminid']
+  $userName = $_POST['username'];
+  //$userID = $_POST['userid'];
+  //$adminID = $_POST['adminid'];
   $otherUserFirstName = $_POST['fname'];
   $otherUserLastName = $_POST['lname'];
+  echo "Initialized variables";
   
   
   // // Send a query to the db with a new message
-  $insertSql = "insert into user (`UserID`, `AdminID`, `FName`, `LName`, `UserName`)
-  VALUES ('$userID', '$adminID', '$otherUserFirstName', '$otherUserLastName', '$newMessage')";
+  $insertSql = "insert into `user` (`FName`, `LName`, `UserName`)
+  VALUES ('$otherUserFirstName', '$otherUserLastName', '$userName')";
+  echo "Insert row into query";
 
   // Error checking
   if (!($conn->query($insertSql) === TRUE)) {
@@ -64,7 +66,8 @@ if(isset($_POST['send'])) {
   }
 
   // The page will automatically refresh thanks to line below
-  header('Location: /profile.php');
+  //header('Location: /profile.php');
+  echo "Page refreshed";
   exit;
 }
 
@@ -105,11 +108,6 @@ if(isset($_POST['send'])) {
     <p>Please fill in this form to create an account.</p>
     <hr>
 
-    <label for="username"><b>User ID number</b></label>
-    <input type="text" placeholder="Enter a number" name="userid" id="userid" required>
-
-    <label for="username"><b>Admin ID number</b></label>
-    <input type="text" placeholder="Enter a number" name="adminid" id="adminid" required>
 
     <label for="username"><b>Username</b></label>
     <input type="text" placeholder="Enter Username" name="username" id="username" required>

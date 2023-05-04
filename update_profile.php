@@ -1,44 +1,3 @@
-<?php
-
-$servername = "localhost";
-$username = "root";
-
-// Create connection
-$conn = new mysqli($servername, $username);
-
-// Check connection
-if($conn -> connect_error)
-{
-die("Connection failed:" . $conn->connect_error);
-
-}
-
-$userSql = "Select * from `user`;";
-$users = $conn->query($userSql);
-$users = $users->fetch_all();
-$id = $_GET['updateUserID'];
-
-
-// UPDATE QUERY
-// If the user hits the update button, they should be able to update the specific message's contents
-if (isset($_POST['submit'])) {
-    //$id = $row['UserID'];
-    //$adminid = $row['AdminID'];
-    $fname = $row['FName'];
-    $lname = $row['LName'];
-    $sql = "update `user` set UserID=$id, FName='$fname', LName='$lname'";
-    $result = mysqli_query($con, $sql);
-    
-    session_start();
-    $_SESSION['profileToBeUpdated'] = $updateProfile;
-  
-    header('Location: /update_profile.php');
-    exit;
-  }
-
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,6 +9,8 @@ if (isset($_POST['submit'])) {
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body style="background-color: #eee;">
+
+
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
@@ -66,47 +27,79 @@ if (isset($_POST['submit'])) {
 </nav>
 </br></br></br></br>
 
+<?php
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbName = "csce_310_punch";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbName);
+echo "Connection established";
 
 
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-<div class="container">
-    <div class="view-account">
-        <section class="module">
-            <div class="module-inner">
-                <div class="content-panel">
-                    <h2 class="title">Profile</h2>
-                    <form class="form-horizontal">
-                        <fieldset class="fieldset">
-                            <h3 class="fieldset-title">Personal Info</h3>
-                            <div class="form-group">
-                                <label class="col-md-2 col-sm-3 col-xs-12 control-label">User Name</label>
-                                <div class="col-md-10 col-sm-9 col-xs-12">
-                                    <input type="text" class="form-control">
-                                </div>
-                            </div>
-        
-                            <div class="form-group">
-                                <label class="col-md-2 col-sm-3 col-xs-12 control-label">First Name</label>
-                                <div class="col-md-10 col-sm-9 col-xs-12">
-                                    <input type="text" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-2 col-sm-3 col-xs-12 control-label">Last Name</label>
-                                <div class="col-md-10 col-sm-9 col-xs-12">
-                                    <input type="text" class="form-control">
-                                </div>
-                            </div>
-                        </fieldset>
-                        <hr>
-                        <div class="form-group">
-                            <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
-                                <input class="btn btn-primary" type="submit" value="Update Profile">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </section>
-    </div>
-</div>
+// Check connection
+if($conn -> connect_error)
+{
+die("Connection failed:" . $conn->connect_error);
+
+}
+
+// $userSql = "Select * from `user`;";
+// $users = $conn->query($userSql);
+// $users = $users->fetch_all();
+// $id = $_GET['updateUserID'];
+
+
+// UPDATE QUERY
+// If the user hits the update button, they should be able to update the specific message's contents
+if (isset($_POST['update'])) {
+    //$id = $row['UserID'];
+    //$adminid = $row['AdminID'];
+    $userName = $_POST['username'];
+    //$userID = $_POST['userid'];
+    //$adminID = $_POST['adminid'];
+    $otherUserFirstName = $_POST['fname'];
+    $otherUserLastName = $_POST['lname'];
+    echo "Initialized variables";
+
+    $updateSql = "update `user` set FName='$otherUserFirstName', LName='$otherUserLastName', UserName='$userName' where UserID = (SELECT MAX(UserID) FROM `user`) LIMIT 1";
+    echo "Update Row";
+
+    // Error checking
+    if (!($conn->query($updateSql) === TRUE)) {
+        echo "Error: " . $updateSql . "<br>" . $conn->error;
+    }
+
+    echo "Page refreshed";
+  
+    exit;
+  }
+
+
+?>
+
+<form action="update_profile.php" method="post">
+  <div class="container">
+    <h1>Update Profile</h1>
+    <p>Please fill in this form to update a user's profile.</p>
+    <hr>
+
+
+    <label for="username"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="username" id="username" required>
+
+    <label for="fname"><b>First Name</b></label>
+    <input type="text" placeholder="Enter First Name" name="fname" id="fname" required>
+
+    <label for="lname"><b>Last Name</b></label>
+    <input type="text" placeholder="Enter Last Name" name="lname" id="lname" required>
+
+
+    <hr>
+
+    <button name="update" type="submit" class="updateprofilebtn">Update Profile</button>
+  </div>
+
+</form>

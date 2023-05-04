@@ -13,45 +13,23 @@ die("Connection failed:" . $conn->connect_error);
 
 }
 
-$userSql = "Select * from `user`;";
-//$users = $conn->query($userSql);
-//$users = $users->fetch_all();
-$result = mysqli_query($conn, $userSql);
-if($result)
-{
-  while($row=mysqli_fetch_assoc($result))
-  {
-    $id = $row['UserID'];
-    //$adminid = $row['AdminID'];
-    $fname = $row['FName'];
-    $lname = $row['LName'];
-    echo '<button type="submit" class="registerbtn">Register</button>';
-  }
-}
-
-/*
-$userSql = "Select * from `user`;";
-$users = $conn->query($userSql);
-$users = $users->fetch_all();
-
 
 // DELETE QUERY
 // If the user hits the delete button, the given message should be removed
-if(isset($_POST['delete'])) {
-  $deletedProfile = $_POST['profileToBeDeleted'];
+// if(isset($_POST['delete'])) {
+//   $deletedProfile = $_POST['profileToBeDeleted'];
 
-  $deleteQuery = "DELETE FROM user
-  WHERE `userID` = '$deletedProfile'";
+//   $deleteQuery = "DELETE FROM user
+//   WHERE `userID` = '$deletedProfile'";
 
-  if (!($conn->query($deleteQuery) === TRUE)) {
-    echo "Error: " . $deleteQuery . "<br>" . $conn->error;
-  }
+//   if (!($conn->query($deleteQuery) === TRUE)) {
+//     echo "Error: " . $deleteQuery . "<br>" . $conn->error;
+//   }
 
-  // The page will automatically refresh thanks to line below
-  header('Location: /profile.php');
-  exit; 
-}
-*/
+//   // The page will automatically refresh thanks to line below
+//   header('Location: /profile.php');
+//   exit; 
+// }
 
 ?>
 
@@ -126,13 +104,14 @@ if(isset($_POST['delete'])) {
           </div>
         </div>
       </li>
-      
+
       <li class="list-group-item d-flex justify-content-between align-content-center">
+        <a href="/delete_profile.php">
         <div class="d-flex flex-row">
           <div class="ml-2">
-            <h3 class="mb-0"><a href="delete_profile.php?deleteid='.$id.'">Delete Account</a></h3>
+            <h3 class="mb-0">Delete</h3>
             <div class="about">
-              <span>Click here if you want to delete your account. This action cannot be undone.</span>
+              <span>Click here to delete a profile</span>
             </div>
           </div>
         </div>
