@@ -1,3 +1,18 @@
+<!-- 
+  File Author: Vardaan Kola
+  File Description: 
+    In the update profile page, the user will be able to update a profile by changing the username and first and last names.
+-->
+
+<!-- 
+  In the PHP section, similarly to other files, first a connection is established with the database.
+  Then, the update query is written for the username, first and last name to be updated for a row the database. The latest row will be updated. Some echo statements and an error checking condition is included for us to make sure the development goes smoothly.
+-->
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -1,3 +1,14 @@
+<!-- 
+  File Author: Vardaan Kola
+  File Description: 
+    In the registration page, the user will be able to enter a desired username, first and last name for his/her desired profile. Upon clicking the 'register' button, the new account will be added to the database.
+-->
+
+<!-- 
+  In the PHP section, similarly to other files, first a connection is established with the database.
+  Then, the insert query is written for the username, first and last name to be added to the database. Some echo statements and an error checking condition is included for us to make sure the development goes smoothly.
+-->
+
 <?php
 
 $servername = "localhost";

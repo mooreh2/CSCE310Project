@@ -1,3 +1,19 @@
+<!-- 
+  File Author: Vardaan Kola
+  File Description: 
+    In the delete profile page, the user will be able to enter the username of a profile they wish to delete. Upon clicking the 'delete' button, the account with the specified username will be deleted.
+-->
+
+<!-- 
+  In the PHP section, similarly to other files, first a connection is established with the database.
+  Then, the delete query is written for the username of the account that will be deleted. Some echo statements and an error checking condition is included for us to make sure the development goes smoothly.
+-->
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

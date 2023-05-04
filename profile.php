@@ -1,10 +1,23 @@
+<!-- 
+  File Author: Vardaan Kola
+  File Description: 
+    In the profile page, there are four options: Register, Update profile, Login, and Delete profile. These four options are basically hyperlinks to different pages. Each page has its own functionality, and hence the user will be redirected to the respective page and php functionalities.
+-->
+
+<!-- 
+  There is not much to this PHP section. Only a connection is established with the database.
+-->
+
 <?php
 
 $servername = "localhost";
 $username = "root";
+$password = "";
+$dbName = "csce_310_punch";
 
 // Create connection
-$conn = new mysqli($servername, $username);
+$conn = new mysqli($servername, $username, $password, $dbName);
+
 
 // Check connection
 if($conn -> connect_error)
