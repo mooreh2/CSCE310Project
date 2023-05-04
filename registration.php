@@ -15,47 +15,19 @@ die("Connection failed:" . $conn->connect_error);
 
 }
 
-// session_start();
-// $currentUser = $_SESSION['typedUser'];
-// $otherUserFirstName = $_SESSION['otherUserFirstName'];
-// $otherUserLastName = $_SESSION['otherUserLastName'];
 
-// $userSql = "Select * from `user`;";
-// //$users = $conn->query($userSql);
-// //$users = $users->fetch_all();
-// $result = mysqli_query($conn, $userSql);
-// if($result)
-// {
-//   while($row=mysqli_fetch_assoc($result))
-//   {
-//     $id = $row['UserID'];
-//     //$adminid = $row['AdminID'];
-//     $fname = $row['FName'];
-//     $lname = $row['LName'];
-//     echo '<button type="submit" class="registerbtn">Register</button>';
-//   }
-// }
-
-/*
-if ($conn->query($sql) === TRUE) {
-  echo "New record created successfully";
-} else {
-  echo "Error: " . $sql . "<br>" . $conn->error;
-}
-*/
-
-//INSERT
+//INSERT Query
+//The user can register for an account by entering desired username, first and last name. Upon clicking the register button, the account with the following information will be created.
 
 if(isset($_POST['send'])) {
+  //initialize username, firstname, lastname
   $userName = $_POST['username'];
-  //$userID = $_POST['userid'];
-  //$adminID = $_POST['adminid'];
   $otherUserFirstName = $_POST['fname'];
   $otherUserLastName = $_POST['lname'];
   echo "Initialized variables";
   
   
-  // // Send a query to the db with a new message
+  // insert SQL query
   $insertSql = "insert into `user` (`FName`, `LName`, `UserName`)
   VALUES ('$otherUserFirstName', '$otherUserLastName', '$userName')";
   echo "Insert row into query";
@@ -65,8 +37,6 @@ if(isset($_POST['send'])) {
     echo "Error: " . $insertSql . "<br>" . $conn->error;
   }
 
-  // The page will automatically refresh thanks to line below
-  //header('Location: /profile.php');
   echo "Page refreshed";
   exit;
 }
@@ -102,6 +72,8 @@ if(isset($_POST['send'])) {
 </nav>
 </br></br></br></br>
 
+
+<!-- Form to register for an account. All the user has to do is enter the username, first and last name of the account they want to create. -->
 <form method="post">
   <div class="container">
     <h1>Register</h1>

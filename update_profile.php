@@ -46,24 +46,18 @@ die("Connection failed:" . $conn->connect_error);
 
 }
 
-// $userSql = "Select * from `user`;";
-// $users = $conn->query($userSql);
-// $users = $users->fetch_all();
-// $id = $_GET['updateUserID'];
 
 
 // UPDATE QUERY
-// If the user hits the update button, they should be able to update the specific message's contents
+// If the user hits the update button, they should be able to update an account
 if (isset($_POST['update'])) {
-    //$id = $row['UserID'];
-    //$adminid = $row['AdminID'];
+    //initialize username, firstname, lastname
     $userName = $_POST['username'];
-    //$userID = $_POST['userid'];
-    //$adminID = $_POST['adminid'];
     $otherUserFirstName = $_POST['fname'];
     $otherUserLastName = $_POST['lname'];
     echo "Initialized variables";
 
+    //SQL query.
     $updateSql = "update `user` set FName='$otherUserFirstName', LName='$otherUserLastName', UserName='$userName' where UserID = (SELECT MAX(UserID) FROM `user`) LIMIT 1";
     echo "Update Row";
 
@@ -80,6 +74,7 @@ if (isset($_POST['update'])) {
 
 ?>
 
+<!-- Form to delete the profile. All the user has to do is enter the username, first and last name of the account they wish to update the information of. -->
 <form action="update_profile.php" method="post">
   <div class="container">
     <h1>Update Profile</h1>

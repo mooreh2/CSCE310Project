@@ -14,23 +14,6 @@ die("Connection failed:" . $conn->connect_error);
 }
 
 
-// DELETE QUERY
-// If the user hits the delete button, the given message should be removed
-// if(isset($_POST['delete'])) {
-//   $deletedProfile = $_POST['profileToBeDeleted'];
-
-//   $deleteQuery = "DELETE FROM user
-//   WHERE `userID` = '$deletedProfile'";
-
-//   if (!($conn->query($deleteQuery) === TRUE)) {
-//     echo "Error: " . $deleteQuery . "<br>" . $conn->error;
-//   }
-
-//   // The page will automatically refresh thanks to line below
-//   header('Location: /profile.php');
-//   exit; 
-// }
-
 ?>
 
 <!DOCTYPE html>
@@ -61,7 +44,7 @@ die("Connection failed:" . $conn->connect_error);
 </div>
 <br/><br/><br/>
 
-
+<!-- The following classes below are hyperlinks to each function for the profile page: Register, Login, Update Profile, and Delete Profile. -->
 
 <div class="container d-flex justify-content-center">
   <div class="page-header">

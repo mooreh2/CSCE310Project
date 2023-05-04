@@ -46,24 +46,16 @@ die("Connection failed:" . $conn->connect_error);
 
 }
 
-// $userSql = "Select * from `user`;";
-// $users = $conn->query($userSql);
-// $users = $users->fetch_all();
-// $id = $_GET['updateUserID'];
 
 
 // DELETE QUERY
-// If the user hits the delete button, they should be able to delete an account
+// If the user hits the delete button, they should be able to delete an account as long as they enter the username of the account they wish to delete.
 if (isset($_POST['delete'])) {
-    //$id = $row['UserID'];
-    //$adminid = $row['AdminID'];
+    //Initialize only the username because we are deleting account based on username only
     $userName = $_POST['username'];
-    //$userID = $_POST['userid'];
-    //$adminID = $_POST['adminid'];
-    // $otherUserFirstName = $_POST['fname'];
-    // $otherUserLastName = $_POST['lname'];
     echo "Initialized variable";
 
+    // SQL query
     $deleteSql = "delete from `user` 
     WHERE UserName='$userName'";
 
@@ -82,6 +74,7 @@ if (isset($_POST['delete'])) {
 
 ?>
 
+<!-- Form to delete the profile. All the user has to do is enter the username of the account they wish to delete into the textbox, and then press the delete button that will delete the profile. -->
 <form action="delete_profile.php" method="post">
   <div class="container">
     <h1>Delete Profile</h1>
