@@ -1,25 +1,22 @@
-<?php
+<!-- 
+  File Author: Vardaan Kola
+  File Description: 
+    In the update profile page, the user will be able to update a profile by changing the username and first and last names.
+-->
 
-$servername = "localhost";
-$username = "root";
-
-// Create connection
-$conn = new mysqli($servername, $username);
-
-// Check connection
-if($conn -> connect_error)
-{
-die("Connection failed:" . $conn->connect_error);
-
-}
+<!-- 
+  In the PHP section, similarly to other files, first a connection is established with the database.
+  Then, the update query is written for the username, first and last name to be updated for a row the database. The latest row will be updated. Some echo statements and an error checking condition is included for us to make sure the development goes smoothly.
+-->
 
 
-?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Update Profile</title>
+  <title>Home</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -27,6 +24,8 @@ die("Connection failed:" . $conn->connect_error);
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <body style="background-color: #eee;">
+
+
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
@@ -38,78 +37,76 @@ die("Connection failed:" . $conn->connect_error);
         <li><a href="/profile.php">My Profile</a></li>
         <li><a href="/">Appointments</a></li>
         <li><a href="/inbox.php">Inbox</a></li>
-        <li><a href="/display_blog.php">Post</a></li>
     </ul>
   </div>
 </nav>
 </br></br></br></br>
 
+<?php
+
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbName = "csce_310_punch";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbName);
 
 
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-<div class="container">
-    <div class="view-account">
-        <section class="module">
-            <div class="module-inner">
-                <div class="content-panel">
-                    <h2 class="title">Profile</h2>
-                    <form class="form-horizontal">
-                        <fieldset class="fieldset">
-                            <h3 class="fieldset-title">Personal Info</h3>
-                            
-                            <div class="form-group">
-                                <label class="col-md-2 col-sm-3 col-xs-12 control-label">User Name</label>
-                                <div class="col-md-10 col-sm-9 col-xs-12">
-                                    <input type="text" class="form-control">
-                                </div>
-                            </div>
-        
-                            <div class="form-group">
-                                <label class="col-md-2 col-sm-3 col-xs-12 control-label">First Name</label>
-                                <div class="col-md-10 col-sm-9 col-xs-12">
-                                    <input type="text" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-2 col-sm-3 col-xs-12 control-label">Last Name</label>
-                                <div class="col-md-10 col-sm-9 col-xs-12">
-                                    <input type="text" class="form-control">
-                                </div>
-                            </div>
-                        </fieldset>
-                        <fieldset class="fieldset">
-                            <h3 class="fieldset-title">Contact Info</h3>
-                            <div class="form-group">
-                                <label class="col-md-2  col-sm-3 col-xs-12 control-label">Email</label>
-                                <div class="col-md-10 col-sm-9 col-xs-12">
-                                    <input type="email" class="form-control">
-                                    <p class="help-block">Your email address</p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-2  col-sm-3 col-xs-12 control-label">Phone number</label>
-                                <div class="col-md-10 col-sm-9 col-xs-12">
-                                    <input type="text" class="form-control">
-                                    <p class="help-block">Your phone number</p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-md-2  col-sm-3 col-xs-12 control-label">Linkedin</label>
-                                <div class="col-md-10 col-sm-9 col-xs-12">
-                                    <input type="url" class="form-control">
-                                    <p class="help-block">eg. https://www.linkedin.com/in/yourname</p>
-                                </div>
-                            </div>
-                        </fieldset>
-                        <hr>
-                        <div class="form-group">
-                            <div class="col-md-10 col-sm-9 col-xs-12 col-md-push-2 col-sm-push-3 col-xs-push-0">
-                                <input class="btn btn-primary" type="submit" value="Update Profile">
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </section>
-    </div>
-</div>
+// Check connection
+if($conn -> connect_error)
+{
+die("Connection failed:" . $conn->connect_error);
+
+}
+
+
+
+// UPDATE QUERY
+// If the user hits the update button, they should be able to update an account
+if (isset($_POST['update'])) {
+    //initialize username, firstname, lastname
+    $userName = $_POST['username'];
+    $otherUserFirstName = $_POST['fname'];
+    $otherUserLastName = $_POST['lname'];
+
+    //SQL query.
+    $updateSql = "update `user` set FName='$otherUserFirstName', LName='$otherUserLastName', UserName='$userName' where UserID = (SELECT MAX(UserID) FROM `user`) LIMIT 1";
+
+    // Error checking
+    if (!($conn->query($updateSql) === TRUE)) {
+        echo "Error: " . $updateSql . "<br>" . $conn->error;
+    }
+
+    header('Location: /profile.php');
+  
+    exit;
+  }
+
+
+?>
+
+<!-- Form to delete the profile. All the user has to do is enter the username, first and last name of the account they wish to update the information of. -->
+<form action="update_profile.php" method="post">
+  <div class="container">
+    <h1>Update Profile</h1>
+    <p>Please fill in this form to update a user's profile.</p>
+    <hr>
+
+
+    <label for="username"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="username" id="username" required>
+
+    <label for="fname"><b>First Name</b></label>
+    <input type="text" placeholder="Enter First Name" name="fname" id="fname" required>
+
+    <label for="lname"><b>Last Name</b></label>
+    <input type="text" placeholder="Enter Last Name" name="lname" id="lname" required>
+
+
+    <hr>
+
+    <button name="update" type="submit" class="updateprofilebtn">Update Profile</button>
+  </div>
+
+</form>
