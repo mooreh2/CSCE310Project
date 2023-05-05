@@ -1,13 +1,14 @@
 <!-- 
   File Author: Vardaan Kola
   File Description: 
-    In the update profile page, the user will be able to update a profile by changing the username and first and last names.
+    In the delete profile page, the user will be able to enter the username of a profile they wish to delete. Upon clicking the 'delete' button, the account with the specified username will be deleted.
 -->
 
 <!-- 
   In the PHP section, similarly to other files, first a connection is established with the database.
-  Then, the update query is written for the username, first and last name to be updated for a row the database. The latest row will be updated. Some echo statements and an error checking condition is included for us to make sure the development goes smoothly.
+  Then, the delete query is written for the username of the account that will be deleted. Some echo statements and an error checking condition is included for us to make sure the development goes smoothly.
 -->
+
 
 
 
@@ -63,20 +64,19 @@ die("Connection failed:" . $conn->connect_error);
 
 
 
-// UPDATE QUERY
-// If the user hits the update button, they should be able to update an account
-if (isset($_POST['update'])) {
-    //initialize username, firstname, lastname
+// DELETE QUERY
+// If the user hits the delete button, they should be able to delete an account as long as they enter the username of the account they wish to delete.
+if (isset($_POST['delete'])) {
+    //Initialize only the username because we are deleting account based on username only
     $userName = $_POST['username'];
-    $otherUserFirstName = $_POST['fname'];
-    $otherUserLastName = $_POST['lname'];
 
-    //SQL query.
-    $updateSql = "update `user` set FName='$otherUserFirstName', LName='$otherUserLastName', UserName='$userName' where UserID = (SELECT MAX(UserID) FROM `user`) LIMIT 1";
+    // SQL query
+    $deleteSql = "delete from `user` 
+    WHERE UserName='$userName'";
 
     // Error checking
-    if (!($conn->query($updateSql) === TRUE)) {
-        echo "Error: " . $updateSql . "<br>" . $conn->error;
+    if (!($conn->query($deleteSql) === TRUE)) {
+        echo "Error: " . $deleteSql . "<br>" . $conn->error;
     }
 
     header('Location: /profile.php');
@@ -87,27 +87,21 @@ if (isset($_POST['update'])) {
 
 ?>
 
-<!-- Form to delete the profile. All the user has to do is enter the username, first and last name of the account they wish to update the information of. -->
-<form action="update_profile.php" method="post">
+<!-- Form to delete the profile. All the user has to do is enter the username of the account they wish to delete into the textbox, and then press the delete button that will delete the profile. -->
+<form action="delete_profile.php" method="post">
   <div class="container">
-    <h1>Update Profile</h1>
-    <p>Please fill in this form to update a user's profile.</p>
+    <h1>Delete Profile</h1>
+    <p>Please enter the username of the profile you want to delete.</p>
     <hr>
 
 
     <label for="username"><b>Username</b></label>
     <input type="text" placeholder="Enter Username" name="username" id="username" required>
 
-    <label for="fname"><b>First Name</b></label>
-    <input type="text" placeholder="Enter First Name" name="fname" id="fname" required>
-
-    <label for="lname"><b>Last Name</b></label>
-    <input type="text" placeholder="Enter Last Name" name="lname" id="lname" required>
-
 
     <hr>
 
-    <button name="update" type="submit" class="updateprofilebtn">Update Profile</button>
+    <button name="delete" type="submit" class="deleteprofilebtn">Delete Profile</button>
   </div>
 
 </form>
