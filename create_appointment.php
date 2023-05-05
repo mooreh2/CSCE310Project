@@ -9,12 +9,30 @@ $conn = new mysqli($servername, $username);
 // Check connection
 if($conn -> connect_error)
 {
-die("Connection failed:" . $conn->connect_error);
-
+    die("Connection failed:" . $conn->connect_error);
 }
 
+session_start();
+$currentUser = $_SESSION['typedUser'];
+
+
+// Querying users from db
+$userSql = "SELECT * FROM `user`;";
+$userResult = $conn->query($userSql);
+$userResult = $userResult->fetch_all();
+
+// Finding the user's the current user has messages with
+$users = [];
+foreach($userResult as $u) {
+  // Cross checking sender IDs with current user's ID
+  if ($u[0] != $currentUser[0]) {
+    // Add the recipeient's id to array (note this array could have duplicates)
+    array_push($users, $u);
+  }
+}
 
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,7 +61,7 @@ die("Connection failed:" . $conn->connect_error);
     <ul class="nav navbar-nav">
         <li><a href="/">Login</a></li>
         <li><a href="/">My Profile</a></li>
-        <li><a href="/">Appointments</a></li>
+        <li><a href="/appointments.php">Appointments</a></li>
         <li><a href="/inbox.php">Inbox</a></li>
     </ul>
   </div>
@@ -61,6 +79,18 @@ die("Connection failed:" . $conn->connect_error);
             <form>
             <div class="form-group">  
                 <div class="container">
+                    <h3> Choose User </h3>
+                    <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                        <?php
+                            foreach($users as $u) {
+                                echo '<option value="'.$u[0] .'">' .$u[1] .' ' .$u[2] .'</option>';
+                            }
+                        ?>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">  
+                <div class="container">
                     <h3> Appointment Time </h3>
                     <div class ='input-group date' id='datetimepicker1'>  
                         <input type ='text' class="form-control" />  
@@ -70,7 +100,6 @@ die("Connection failed:" . $conn->connect_error);
                     </div> 
                 </div>
             </div>
-        
             <button type="Save" class="btn btn-primary">Save</button>
             </form>
         </div>
