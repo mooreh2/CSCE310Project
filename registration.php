@@ -74,7 +74,7 @@ if(isset($_POST['send'])) {
     <ul class="nav navbar-nav">
         <li><a href="/">Login</a></li>
         <li><a href="/profile.php">My Profile</a></li>
-        <li><a href="/">Appointments</a></li>
+        <li><a href="/appointments.php">Appointments</a></li>
         <li><a href="/inbox.php">Inbox</a></li>
         <li><a href="/display_blog.php">Post</a></li>
     </ul>

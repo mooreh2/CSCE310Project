@@ -2,9 +2,12 @@
 
 $servername = "localhost";
 $username = "root";
+$password = "";
+$dbName = "csce_310_punch";
+
 
 // Create connection
-$conn = new mysqli($servername, $username);
+$conn = new mysqli($servername, $username, $password, $dbName);
 
 // Check connection
 if($conn -> connect_error)
@@ -16,20 +19,23 @@ session_start();
 $currentUser = $_SESSION['typedUser'];
 
 // Querying users from db
-$userSql = "SELECT * FROM `appointments`;";
+$userSql = "SELECT * FROM `user`;";
 $userResult = $conn->query($userSql);
 $userResult = $userResult->fetch_all();
 
+$apptSQL = "SELECT * FROM `appointment`;";
+$apptResult = $conn->query($apptSQL);
+$apptResult = $apptResult->fetch_all();
+
 // Finding the user's the current user has messages with
-$userAppointments = [];
+$users = [];
 foreach($userResult as $u) {
   // Cross checking sender IDs with current user's ID
-  if ($u[1] == $currentUser[0] || $u[2] == $currentUser[0]) {
+  //if ($a[1] == $currentUser[0] || $a[2] == $currentUser[0]) {
     // Add the recipeient's id to array (note this array could have duplicates)
     array_push($users, $u);
-  }
+  //}
 }
-
 
  ?>
 
@@ -64,73 +70,108 @@ foreach($userResult as $u) {
 
 <div class="container d-flex justify-content-center">
   <div class="page-header">
-    <h1 class="text-center">Appointments</h1>
+    <h1 class="text-center"><?php echo $currentUser[1] .' ' .$currentUser[2] .'\'s Appointments';?></h1>
   </div>
-    <ul class="list-group mt-5 text-white">
-
-		<li class="list-group-item d-flex justify-content-between align-content-center">
-        <a href="/update_appointment.php">
-        <div class="d-flex flex-row">
-            <div class="ml-2">
-                <h3 class="mb-0">John Smith</h3>
-                <div class="about">
-                    <span>Date: Jan 21, 2020</span>
-                </div>
-                    <div class="about">
-                    <span>Time: 3:00 pm</span>
-                </div>
-            </div>
-		</div>
-		</li>
-
-      <li class="list-group-item d-flex justify-content-between align-content-center">
-      <a href="/update_appointment.php">
-      <div class="d-flex flex-row">
-          <div class="ml-2">
-            <h3 class="mb-0">John Smith</h3>
-            <div class="about">
-		  		<span>Date: Jan 21, 2020</span>
-			</div>
-            <div class="about">
-		  	    <span>Time: 3:00 pm</span>
-		  	</div>
-          </div>
-        </div>
-      </li>
-
-      <li class="list-group-item d-flex justify-content-between align-content-center">
-        <a href="/update_appointment.php">
-        <div class="d-flex flex-row">
-          <div class="ml-2">
-            <h3 class="mb-0">John Smith</h3>
-            <div class="about">
-		  	    <span>Date: Jan 21, 2020</span>
-		  	</div>
-            <div class="about">
-		  		<span>Time: 3:00 pm</span>
-		  	</div>
-          </div>
-        </div>
-      </li>
+  <table class="table">
+  <thead>
+    <tr>
+    <th scope="col">ID</th>
+      <th scope="col">Who</th>
+      <th scope="col">Date</th>
+      <th scope="col">Location</th>
+      <th scope="col"></th>
       
-      <li class="list-group-item d-flex justify-content-between align-content-center">
-        <a href="/update_appointment.php">
-        <div class="d-flex flex-row">
-          <div class="ml-2">
-            <h3 class="mb-0">John Smith</h3>
-            <div class="about">
-		  		<span>Date: Jan 21, 2020</span>
-			</div>
-            <div class="about">
-    			<span>Time: 3:00 pm</span>
-  			</div>
-          </div>
-        </div>
-      </li>
+    </tr>
+  </thead>
+  <tbody>
 
-		</ul>
+
+
+  <?php
+$ApptSQL = "SELECT * FROM appointment";
+$appointments = $conn->query($ApptSQL);
+if($appointments){
+  while($row=mysqli_fetch_assoc($appointments)){
+    $apptID=$row['ApptNumber'];
+    $user1=$row['User1ID'];
+    $user2=$row['User2ID'];
+
+    if ($currentUser[0] == $user1) {
+        foreach($users as $u) {
+            if ($u[0] == $user2) {
+                $otherUser = $u;
+                break;
+            }
+        }
+    }
+    else if ($currentUser[0] == $user2) {
+        foreach($users as $u) {
+            if ($u[0] == $user1) {
+                $otherUser = $u;
+                break;
+            }
+        }
+    }
+    else {
+        continue;
+    }
+
+    $otherUserFName=$otherUser[1];
+    $otherUserLName=$otherUser[2];
+    $date=$row['Time'];
+    $location=$row['Location'];
+    echo '<tr>
+    <th scope="row">'.$apptID.'</th>
+    <td>'.$otherUserFName.' '.$otherUserLName.'<td>
+    <td>'.$date.'</td>
+    <td>'.$location.'</td>
+    <td>
+        <button><a href="update_appointment.php?updateid=' . $apptID .'">update</a></button>
+        <button><a href="delete_appointment.php?deleteid=' . $apptID .'">delete</a></button>
+  </td>
+  </tr>';
+  }
+  
+}
+  ?>
+  
+  </tbody>
+</table>
     <a href="/create_appointment.php" class="create-apt-btn" role="button">Create Appointment</a>
 </div>
 
 </body>
 </html>
+
+<!-- <ul class="list-group mt-5 text-white">
+    <?php 
+        foreach($userResult as $appointment) {
+            // if ($appointment[1] == $currentUser[0]) {
+            //     $otherUserID = $appointment[2];
+            // }
+            // else {
+            //     $otherUserID = $appointment[1];
+            // }
+            // foreach($userResult as $user) {
+            //     if ($user[0] == $otherUserID) {
+            //         $otherUser = $user;
+            //     }
+            // }
+            echo `<li class="list-group-item d-flex justify-content-between align-content-center">
+            <a href="/update_appointment.php">
+            <div class="d-flex flex-row">
+                <div class="ml-2">
+                    <h3 class="mb-0">' .$appointment[1] .' ' .$appointment[2] .'</h3>
+                    <div class="about">
+                        <span>When: ' .$appointment[3] .'</span>
+                    </div>
+                        <div class="about">
+                        <span>Where: ' .$appointment[4] .'</span>
+                    </div>
+                </div>
+            </div>
+            </li>`
+            ;
+        }
+    ?>
+    </ul> -->

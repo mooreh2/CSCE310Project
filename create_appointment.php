@@ -2,15 +2,12 @@
 
 $servername = "localhost";
 $username = "root";
+$password = "";
+$dbName = "csce_310_punch";
+
 
 // Create connection
-$conn = new mysqli($servername, $username);
-
-// Check connection
-if($conn -> connect_error)
-{
-    die("Connection failed:" . $conn->connect_error);
-}
+$conn = new mysqli($servername, $username, $password, $dbName);
 
 session_start();
 $currentUser = $_SESSION['typedUser'];
@@ -31,6 +28,26 @@ foreach($userResult as $u) {
   }
 }
 
+// INSERT QUERY
+// If the user sends a message, the database must update, and that message should be displayed
+if(isset($_POST['submit'])) {
+    $selectedApptTime = $_POST['addedTime'];
+    $selectedApptLocation = $_POST['addedLocation'];
+    $selectedApptUser = $_POST['addedUser']; 
+    // Send a query to the db with a new message
+    $insertSql = "INSERT INTO appointment (`User1ID`, `User2ID`, `Time`, `Location`)
+    VALUES ('$currentUser[0]', '$addedUser[0]', '$selectedApptTime', '$selectedApptLocation')";
+  
+    // Error checking
+    if (!($conn->query($insertSql) === TRUE)) {
+      echo "Error: " . $insertSQL . "<br>" . $conn->error;
+    }
+  
+    // The page will automatically refresh thanks to line below
+    header('Location: /appointments.php');
+    exit;
+  }
+
 ?>
 
 <!DOCTYPE html>
@@ -47,6 +64,11 @@ foreach($userResult as $u) {
     $(function() {  
         $('#datetimepicker1').datetimepicker();  
     });  
+
+    $('.selectpicker').change(function () {
+        var selectedItem = $('.selectpicker').val();
+        alert(selectedItem);
+    });
   </script> 
     <link rel ="stylesheet" href ="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">  
     <link rel ="stylesheet" href ="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.min.css">  
@@ -76,11 +98,11 @@ foreach($userResult as $u) {
             <div class="page-header">
                 <h1 class="text-center">Create Appointment</h1>
             </div>
-            <form>
+            <form method="post">
             <div class="form-group">  
                 <div class="container">
                     <h3> Choose User </h3>
-                    <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+                    <select name="addedUser" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
                         <?php
                             foreach($users as $u) {
                                 echo '<option value="'.$u[0] .'">' .$u[1] .' ' .$u[2] .'</option>';
@@ -91,16 +113,22 @@ foreach($userResult as $u) {
             </div>
             <div class="form-group">  
                 <div class="container">
+                    <h3> Appointment Location </h3>
+                    <input type="text" class="form-control" name="addedLocationLocation">
+                </div>
+            </div>
+            <div class="form-group">  
+                <div class="container">
                     <h3> Appointment Time </h3>
                     <div class ='input-group date' id='datetimepicker1'>  
-                        <input type ='text' class="form-control" />  
+                        <input type ='text' class="form-control" name="addedTime"/>  
                         <span class ="input-group-addon">  
                         <span class ="glyphicon glyphicon-calendar"></span>  
                         </span>  
                     </div> 
                 </div>
             </div>
-            <button type="Save" class="btn btn-primary">Save</button>
+            <button type="submit" class="btn btn-primary" name="submit">Save</button>
             </form>
         </div>
     </div>

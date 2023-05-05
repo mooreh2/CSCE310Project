@@ -2,9 +2,12 @@
 
 $servername = "localhost";
 $username = "root";
+$password = "";
+$dbName = "csce_310_punch";
+
 
 // Create connection
-$conn = new mysqli($servername, $username);
+$conn = new mysqli($servername, $username, $password, $dbName);
 
 // Check connection
 if($conn -> connect_error)
@@ -13,7 +16,25 @@ die("Connection failed:" . $conn->connect_error);
 
 }
 
+$id=$_GET['updateid'];
 
+// UPDATE QUERY
+// If the user hits the update button, they should be able to update the specific message's contents
+
+if(isset($_POST['submit'])){
+  $time=$_POST['apptTime'];
+  $location=$_POST['apptLocation'];
+
+  $sql="UPDATE appointment SET `Time`='$time', `Location`='$location' WHERE ApptNumber='$id'";
+  $result = $conn->query($sql);
+  if($result){
+    header('location:/appointments.php');
+  }
+  else{
+    die("Connection failed:" . $conn->connect_error);
+  }
+
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -58,21 +79,25 @@ die("Connection failed:" . $conn->connect_error);
             <div class="page-header">
                 <h1 class="text-center">Appointment with "NAME"</h1>
             </div>
-            <form>
+            <form method="post">
             <div class="form-group">  
                 <div class="container">
                     <h3> Edit Appointment Time </h3>
                     <div class ='input-group date' id='datetimepicker1'>  
-                        <input type ='text' class="form-control" />  
+                        <input type ='text' class="form-control" name="apptTime"/>  
                         <span class ="input-group-addon">  
                         <span class ="glyphicon glyphicon-calendar"></span>  
                         </span>  
                     </div> 
                 </div>
             </div>
-        
-            <a href="appointments.php" class="btn btn-primary" role="button">Save</a>
-            <a href="appointments.php" class="btn btn-primary" role="button">Delete</a>
+            <div class="form-group">  
+                <div class="container">
+                    <h3> Edit Appointment Location </h3>
+                    <input type="text" class="form-control" name="apptLocation">
+                </div>
+            </div>
+              <button type="submit" class="btn btn-primary" name="submit">Save</button>
             </form>
         </div>
     </div>
