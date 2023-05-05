@@ -36,6 +36,7 @@ if(isset($_POST['submit'])){
 
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -77,7 +78,7 @@ if(isset($_POST['submit'])){
     <div class="padding">
         <div class="container d-flex justify-content-center">
             <div class="page-header">
-                <h1 class="text-center">Appointment with "NAME"</h1>
+                <h1 class="text-center">Edit Appointment</h1>
             </div>
             <form method="post">
             <div class="form-group">  

@@ -75,11 +75,20 @@ foreach($userResult as $u) {
   <table class="table">
   <thead>
     <tr>
-    <th scope="col">ID</th>
-      <th scope="col">Who</th>
-      <th scope="col">Date</th>
-      <th scope="col">Location</th>
-      <th scope="col"></th>
+    <th>ID</th>
+    <?php
+        if($currentUser[7]) {
+            echo '<th>User 1</th>
+                 <th>User 2</th>
+            ';
+        }
+        else {
+            echo '<th>Who</th>';
+        }
+     ?>
+      <th>Date</th>
+      <th>Location</th>
+      <th></th>
       
     </tr>
   </thead>
@@ -96,42 +105,74 @@ if($appointments){
     $user1=$row['User1ID'];
     $user2=$row['User2ID'];
 
-    if ($currentUser[0] == $user1) {
-        foreach($users as $u) {
-            if ($u[0] == $user2) {
-                $otherUser = $u;
-                break;
-            }
-        }
-    }
-    else if ($currentUser[0] == $user2) {
+    if ($currentUser[7]) {
         foreach($users as $u) {
             if ($u[0] == $user1) {
-                $otherUser = $u;
+                $user1 = $u;
                 break;
             }
         }
+        foreach($users as $u) {
+            if ($u[0] == $user2) {
+                $user2 = $u;
+                break;
+            }
+        }
+        $User1FName=$user1[1];
+        $User1LName=$user1[2];
+        $User2FName=$user2[1];
+        $User2LName=$user2[2];
+        $date=$row['Time'];
+        $location=$row['Location'];
+        echo '<tr>
+            <th scope="row">'.$apptID.'</th>
+            <td>'.$User1FName.' '.$User1LName.'<td>
+            <td>'.$User2FName.' '.$User2LName.'<td>
+            <td>'.$date.'</td>
+            <td>'.$location.'</td>
+            <td>
+                <button><a href="update_appointment.php?updateid=' . $apptID .'">update</a></button>
+                <button><a href="delete_appointment.php?deleteid=' . $apptID .'">delete</a></button>
+        </td>
+        </tr>';
     }
     else {
-        continue;
-    }
+        if ($currentUser[0] == $user1) {
+            foreach($users as $u) {
+                if ($u[0] == $user2) {
+                    $otherUser = $u;
+                    break;
+                }
+            }
+        }
+        else if ($currentUser[0] == $user2) {
+            foreach($users as $u) {
+                if ($u[0] == $user1) {
+                    $otherUser = $u;
+                    break;
+                }
+            }
+        }
+        else {
+            continue;
+        }
 
-    $otherUserFName=$otherUser[1];
-    $otherUserLName=$otherUser[2];
-    $date=$row['Time'];
-    $location=$row['Location'];
-    echo '<tr>
-    <th scope="row">'.$apptID.'</th>
-    <td>'.$otherUserFName.' '.$otherUserLName.'<td>
-    <td>'.$date.'</td>
-    <td>'.$location.'</td>
-    <td>
-        <button><a href="update_appointment.php?updateid=' . $apptID .'">update</a></button>
-        <button><a href="delete_appointment.php?deleteid=' . $apptID .'">delete</a></button>
-  </td>
-  </tr>';
-  }
-  
+        $otherUserFName=$otherUser[1];
+        $otherUserLName=$otherUser[2];
+        $date=$row['Time'];
+        $location=$row['Location'];
+        echo '<tr>
+        <th scope="row">'.$apptID.'</th>
+        <td>'.$otherUserFName.' '.$otherUserLName.'<td>
+        <td>'.$date.'</td>
+        <td>'.$location.'</td>
+        <td>
+            <button><a href="update_appointment.php?updateid=' . $apptID .'">update</a></button>
+            <button><a href="delete_appointment.php?deleteid=' . $apptID .'">delete</a></button>
+        </td>
+        </tr>';
+    }
+}
 }
   ?>
   
@@ -142,36 +183,3 @@ if($appointments){
 
 </body>
 </html>
-
-<!-- <ul class="list-group mt-5 text-white">
-    <?php 
-        foreach($userResult as $appointment) {
-            // if ($appointment[1] == $currentUser[0]) {
-            //     $otherUserID = $appointment[2];
-            // }
-            // else {
-            //     $otherUserID = $appointment[1];
-            // }
-            // foreach($userResult as $user) {
-            //     if ($user[0] == $otherUserID) {
-            //         $otherUser = $user;
-            //     }
-            // }
-            echo `<li class="list-group-item d-flex justify-content-between align-content-center">
-            <a href="/update_appointment.php">
-            <div class="d-flex flex-row">
-                <div class="ml-2">
-                    <h3 class="mb-0">' .$appointment[1] .' ' .$appointment[2] .'</h3>
-                    <div class="about">
-                        <span>When: ' .$appointment[3] .'</span>
-                    </div>
-                        <div class="about">
-                        <span>Where: ' .$appointment[4] .'</span>
-                    </div>
-                </div>
-            </div>
-            </li>`
-            ;
-        }
-    ?>
-    </ul> -->

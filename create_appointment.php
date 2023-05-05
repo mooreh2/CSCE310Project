@@ -34,9 +34,10 @@ if(isset($_POST['submit'])) {
     $selectedApptTime = $_POST['addedTime'];
     $selectedApptLocation = $_POST['addedLocation'];
     $selectedApptUser = $_POST['addedUser']; 
+
     // Send a query to the db with a new message
     $insertSql = "INSERT INTO appointment (`User1ID`, `User2ID`, `Time`, `Location`)
-    VALUES ('$currentUser[0]', '$addedUser[0]', '$selectedApptTime', '$selectedApptLocation')";
+    VALUES ('$currentUser[0]', '$addedUser', '$selectedApptTime', '$selectedApptLocation')";
   
     // Error checking
     if (!($conn->query($insertSql) === TRUE)) {
@@ -102,19 +103,14 @@ if(isset($_POST['submit'])) {
             <div class="form-group">  
                 <div class="container">
                     <h3> Choose User </h3>
-                    <select name="addedUser" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
                         <?php
                             foreach($users as $u) {
-                                echo '<option value="'.$u[0] .'">' .$u[1] .' ' .$u[2] .'</option>';
+                                echo '<div class="form-check">
+                                    <input type="radio" class="form-check-input" name="addedUser" value="'. $u[0].'">'.$u[1].' '.$u[2].' 
+                                    <label class="form-check-label"></label>
+                              </div>';
                             }
                         ?>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">  
-                <div class="container">
-                    <h3> Appointment Location </h3>
-                    <input type="text" class="form-control" name="addedLocationLocation">
                 </div>
             </div>
             <div class="form-group">  
@@ -126,6 +122,12 @@ if(isset($_POST['submit'])) {
                         <span class ="glyphicon glyphicon-calendar"></span>  
                         </span>  
                     </div> 
+                </div>
+            </div>
+            <div class="form-group">  
+                <div class="container">
+                    <h3> Appointment Location </h3>
+                    <input type="text" class="form-control" name="addedLocation">
                 </div>
             </div>
             <button type="submit" class="btn btn-primary" name="submit">Save</button>
