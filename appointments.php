@@ -67,7 +67,7 @@ foreach($userResult as $u) {
   </div>
 </nav>
 
-
+<br><br>
 <div class="container d-flex justify-content-center">
   <div class="page-header">
     <h1 class="text-center"><?php echo $currentUser[1] .' ' .$currentUser[2] .'\'s Appointments';?></h1>
@@ -77,7 +77,7 @@ foreach($userResult as $u) {
     <tr>
     <th>ID</th>
     <?php
-        if($currentUser[7]) {
+        if($currentUser[6]) {
             echo '<th>User 1</th>
                  <th>User 2</th>
             ';
@@ -105,7 +105,7 @@ if($appointments){
     $user1=$row['User1ID'];
     $user2=$row['User2ID'];
 
-    if ($currentUser[7]) {
+    if ($currentUser[6]) {
         foreach($users as $u) {
             if ($u[0] == $user1) {
                 $user1 = $u;
