@@ -9,12 +9,31 @@ $conn = new mysqli($servername, $username);
 // Check connection
 if($conn -> connect_error)
 {
-die("Connection failed:" . $conn->connect_error);
+    die("Connection failed:" . $conn->connect_error);
+}
 
+session_start();
+$currentUser = $_SESSION['typedUser'];
+
+// Querying users from db
+$userSql = "SELECT * FROM `appointments`;";
+$userResult = $conn->query($userSql);
+$userResult = $userResult->fetch_all();
+
+// Finding the user's the current user has messages with
+$userAppointments = [];
+foreach($userResult as $u) {
+  // Cross checking sender IDs with current user's ID
+  if ($u[1] == $currentUser[0] || $u[2] == $currentUser[0]) {
+    // Add the recipeient's id to array (note this array could have duplicates)
+    array_push($users, $u);
+  }
 }
 
 
-?>
+ ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

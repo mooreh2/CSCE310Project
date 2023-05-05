@@ -1,3 +1,13 @@
+<!-- 
+  File Author: Vardaan Kola
+  File Description: 
+    In the profile page, there are four options: Register, Update profile, Login, and Delete profile. These four options are basically hyperlinks to different pages. Each page has its own functionality, and hence the user will be redirected to the respective page and php functionalities.
+-->
+
+<!-- 
+  There is not much to this PHP section. Only a connection is established with the database.
+-->
+
 <?php
 
 $servername = "localhost";
@@ -8,21 +18,21 @@ $dbName = "csce_310_punch";
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbName);
 
+
 // Check connection
-if($conn -> connect_error) {
-  die("Connection failed:" . $conn->connect_error);
+if($conn -> connect_error)
+{
+die("Connection failed:" . $conn->connect_error);
+
 }
 
-session_start();
-$currentUser = $_SESSION['typedUser'];
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Profile</title>
+  <title>Home</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -41,17 +51,18 @@ $currentUser = $_SESSION['typedUser'];
         <li><a href="/profile.php">My Profile</a></li>
       <li><a href="/">Appointments</a></li>
       <li><a href="/inbox.php">Inbox</a></li>
+      <li><a href="/display_blog.php">Post</a></li>
     </ul>
   </div>
 </nav>
 </div>
 <br/><br/><br/>
 
-
+<!-- The following classes below are hyperlinks to each function for the profile page: Register, Login, Update Profile, and Delete Profile. -->
 
 <div class="container d-flex justify-content-center">
   <div class="page-header">
-    <h1 class="text-center"><?php echo $currentUser[1] .' ' .$currentUser[2] .'\'s Profile';?></h1>
+    <h1 class="text-center">Profile</h1>
   </div>
 		<ul class="list-group mt-5 text-white">
 
@@ -68,12 +79,12 @@ $currentUser = $_SESSION['typedUser'];
 		  </li>
 
       <li class="list-group-item d-flex justify-content-between align-content-center">
-        <a href="/">
+        <a href="/index.php">
         <div class="d-flex flex-row">
           <div class="ml-2">
-            <h3 class="mb-0">Sign Out</h3>
+            <h3 class="mb-0">Login</h3>
             <div class="about">
-              <span>Click here to sign out</span>
+              <span>Click here to login</span>
             </div>
           </div>
         </div>
@@ -83,24 +94,24 @@ $currentUser = $_SESSION['typedUser'];
         <a href="/update_profile.php">
         <div class="d-flex flex-row">
           <div class="ml-2">
-            <h3 class="mb-0">Update Profile</h3>
+            <h3 class="mb-0">Update Profiles</h3>
             <div class="about">
-              <span>Click here to update your profile</span>
+              <span>Click here to update profile</span>
             </div>
           </div>
         </div>
       </li>
-      
+
       <li class="list-group-item d-flex justify-content-between align-content-center">
-        <a href="/">  
+        <a href="/delete_profile.php">
         <div class="d-flex flex-row">
-            <div class="ml-2">
-              <h3 class="mb-0">Delete Account</h3>
-              <div class="about">
-                <span>Click here if you want to delete your account. This action cannot be undone.</span>
-              </div>
+          <div class="ml-2">
+            <h3 class="mb-0">Delete</h3>
+            <div class="about">
+              <span>Click here to delete a profile</span>
             </div>
           </div>
+        </div>
       </li>
 
 		</ul>
