@@ -1,3 +1,8 @@
+<!-- Fisher Byers coded everything on this page -->
+
+<!-- The purpose for this code is for the user to be able to add posts to their UI while also adding them to the database -->
+
+
 <?php
 
 $servername = "localhost";
@@ -13,17 +18,18 @@ if($conn -> connect_error) {
   die("Connection failed:" . $conn->connect_error);
 }
 
-if(isset($_POST['submit'])){
-  $content=$_POST['content'];
+if(isset($_POST['submit'])){   //submitting post to database
+  $content=$_POST['content'];   
   $date=$_POST['date'];
 
   
-
-  $sql="INSERT INTO post (content,date) 
+//database query
+  $sql="INSERT INTO post (content,date)   
   VALUES('$content','$date');";
   $result = $conn->query($sql);
   if($result){
     echo "succewesss";
+    header('location:display_blog.php');
   }
   else{
     die("Connection failed:" . $conn->connect_error);
@@ -31,9 +37,6 @@ if(isset($_POST['submit'])){
 
 }
 
-$sql = "SELECT * FROM `user`;";
-$result = $conn->query($sql);
-$result = $result->fetch_all();
 
 ?>
 
@@ -52,7 +55,7 @@ $result = $result->fetch_all();
 <body style="background-color: #eee;">
 
 <div>
-<nav class="navbar navbar-inverse navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-fixed-top">  
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#">Punch</a>
@@ -62,6 +65,7 @@ $result = $result->fetch_all();
         <li><a href="/profile.php">My Profile</a></li>
       <li><a href="/">Appointments</a></li>
       <li><a href="/inbox.php">Inbox</a></li>
+      <li><a href="/display_blog.php">Post</a></li>
     </ul>
   </div>
 </nav>
@@ -93,13 +97,6 @@ $result = $result->fetch_all();
 
 </div>
 
-<!-- Testing query results -->
-<!-- <?php
-  foreach($result as $a) {
-    echo '<strong>Username</strong>: ' .$a[3];
-    echo '<br/>';
-  }
-?> -->
 
 
 

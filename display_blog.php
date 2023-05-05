@@ -1,3 +1,8 @@
+<!-- Fisher Byers coded everything on this page -->
+
+<!-- The purpose of this code is to create a UI for the user to be able to display their posts that are in the database and make it possible for the user to specific functionalities with their posts. -->
+
+
 <?php
 
 $servername = "localhost";
@@ -13,27 +18,7 @@ if($conn -> connect_error) {
   die("Connection failed:" . $conn->connect_error);
 }
 
-// if(isset($_POST['submit'])){
-//   $content=$_POST['content'];
-//   $date=$_POST['date'];
 
-  
-
-//   $sql="INSERT INTO post (content,date) 
-//   VALUES('$content','$date');";
-//   $result = $conn->query($sql);
-//   if($result){
-//     echo "succewesss";
-//   }
-//   else{
-//     die("Connection failed:" . $conn->connect_error);
-//   }
-
-// }
-
-$sql = "SELECT * FROM `user`;";
-$result = $conn->query($sql);
-$result = $result->fetch_all();
 
 ?>
 
@@ -96,7 +81,7 @@ $result = $result->fetch_all();
 
 
   <?php
-$sql = "SELECT * FROM post";
+$sql = "SELECT * FROM post";    //displaying posts from the database
 $result = $conn->query($sql);
 if($result){
   while($row=mysqli_fetch_assoc($result)){

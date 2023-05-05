@@ -1,3 +1,9 @@
+<!-- Fisher Byers coded everything on this page -->
+
+
+<!-- The purpose of this code is to is to create a UI for the user to be able to update their posts and reflect these changes within the database -->
+
+
 <?php
 
 $servername = "localhost";
@@ -12,14 +18,14 @@ $conn = new mysqli($servername, $username, $password, $dbName);
 if($conn -> connect_error) {
   die("Connection failed:" . $conn->connect_error);
 }
-$id=$_GET['updateid'];
-if(isset($_POST['submit'])){
+$id=$_GET['updateid'];      //grabbing updateid
+if(isset($_POST['submit'])){       
   $content=$_POST['content'];
   $date=$_POST['date'];
 
   
 
-  $sql="UPDATE post set PostId=$id,content='$content',date=$date where PostId=$id";
+  $sql="UPDATE post set PostId=$id,content='$content',date=$date where PostId=$id";  //database query updating
   $result = $conn->query($sql);
   if($result){
     header('location:display_blog.php');
@@ -30,9 +36,7 @@ if(isset($_POST['submit'])){
 
 }
 
-// $sql = "SELECT * FROM `user`;";
-// $result = $conn->query($sql);
-// $result = $result->fetch_all();
+
 
 ?>
 
@@ -93,13 +97,7 @@ if(isset($_POST['submit'])){
 
 </div>
 
-<!-- Testing query results -->
-<!-- <?php
-  foreach($result as $a) {
-    echo '<strong>Username</strong>: ' .$a[3];
-    echo '<br/>';
-  }
-?> -->
+
 
 
 
