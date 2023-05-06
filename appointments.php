@@ -1,3 +1,14 @@
+<!-- 
+
+Filename: 'Appointments.php'
+Author: Izzy Rhoads
+Purpose: to display the appointments for a given user. The other user's name,
+time of the meeting and locaiton are displayed, with edit/delete buttons for each.
+There is also a 'Create Appointment' button to insert a new appointment with a given user into the table.
+
+-->
+
+
 <?php
 
 $servername = "localhost";
@@ -23,18 +34,15 @@ $userSql = "SELECT * FROM `user`;";
 $userResult = $conn->query($userSql);
 $userResult = $userResult->fetch_all();
 
+// Querying all appointments
 $apptSQL = "SELECT * FROM `appointment`;";
 $apptResult = $conn->query($apptSQL);
 $apptResult = $apptResult->fetch_all();
 
-// Finding the user's the current user has messages with
+// pushing user objects to usablw array
 $users = [];
 foreach($userResult as $u) {
-  // Cross checking sender IDs with current user's ID
-  //if ($a[1] == $currentUser[0] || $a[2] == $currentUser[0]) {
-    // Add the recipeient's id to array (note this array could have duplicates)
     array_push($users, $u);
-  //}
 }
 
  ?>
@@ -43,6 +51,7 @@ foreach($userResult as $u) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- NAVBAR -->
   <title>Bootstrap Example</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -77,12 +86,14 @@ foreach($userResult as $u) {
     <tr>
     <th>ID</th>
     <?php
+        // View if user is admin
         if($currentUser[7]) {
             echo '<th>User 1</th>
                  <th>User 2</th>
             ';
         }
         else {
+          // View if user is normal
             echo '<th>Who</th>';
         }
      ?>
@@ -97,14 +108,17 @@ foreach($userResult as $u) {
 
 
   <?php
+  // Querying all appointments
 $ApptSQL = "SELECT * FROM appointment";
 $appointments = $conn->query($ApptSQL);
 if($appointments){
+    //row by row
   while($row=mysqli_fetch_assoc($appointments)){
     $apptID=$row['ApptNumber'];
     $user1=$row['User1ID'];
     $user2=$row['User2ID'];
 
+    // admin view
     if ($currentUser[7]) {
         foreach($users as $u) {
             if ($u[0] == $user1) {
@@ -118,6 +132,7 @@ if($appointments){
                 break;
             }
         }
+        // displays both users involved in appointment
         $User1FName=$user1[1];
         $User1LName=$user1[2];
         $User2FName=$user2[1];
@@ -136,6 +151,7 @@ if($appointments){
         </td>
         </tr>';
     }
+    // regular view, users only see their appointemnts
     else {
         if ($currentUser[0] == $user1) {
             foreach($users as $u) {

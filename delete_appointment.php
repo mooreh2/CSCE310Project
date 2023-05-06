@@ -1,3 +1,11 @@
+<!-- 
+
+Filename: 'delete_appointment.php'
+Author: Izzy Rhoads
+Purpose: Functionality to delete a given appointment based on session "deleteid".
+
+-->
+
 <?php
 
 $servername = "localhost";
@@ -15,6 +23,7 @@ if($conn -> connect_error) {
 
 session_start();
 
+// Query to delete a given appointment from the database by ID
 if(isset($_GET['deleteid'])){
 
     $apptID=$_GET['deleteid'];
