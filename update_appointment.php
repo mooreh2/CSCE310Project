@@ -1,3 +1,12 @@
+<!-- 
+
+Filename: 'update_appointment.php'
+Author: Izzy Rhoads
+Purpose: Functionality to delete a given appointment based on session "updateid". 
+Users involved with appointment cannot be changed.
+
+ -->
+
 <?php
 
 $servername = "localhost";
@@ -19,8 +28,7 @@ die("Connection failed:" . $conn->connect_error);
 $id=$_GET['updateid'];
 
 // UPDATE QUERY
-// If the user hits the update button, they should be able to update the specific message's contents
-
+// If the user hits the update button, they should be able to update only the location and time of the appointment by session "updateid", but not the user.
 if(isset($_POST['submit'])){
   $time=$_POST['apptTime'];
   $location=$_POST['apptLocation'];
@@ -83,6 +91,7 @@ if(isset($_POST['submit'])){
             <form method="post">
             <div class="form-group">  
                 <div class="container">
+                  <!-- Edit time of appointment with dateTime picker from bootstrap -->
                     <h3> Edit Appointment Time </h3>
                     <div class ='input-group date' id='datetimepicker1'>  
                         <input type ='text' class="form-control" name="apptTime"/>  
@@ -94,6 +103,7 @@ if(isset($_POST['submit'])){
             </div>
             <div class="form-group">  
                 <div class="container">
+                  <!-- Edit appointment location via text field -->
                     <h3> Edit Appointment Location </h3>
                     <input type="text" class="form-control" name="apptLocation">
                 </div>

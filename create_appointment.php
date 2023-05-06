@@ -1,3 +1,11 @@
+<!-- 
+
+Filename: 'delete_appointment.php'
+Author: Izzy Rhoads
+Purpose: Functionality to delete a given appointment based on session "deleteid".
+ 
+-->
+
 <?php
 
 $servername = "localhost";
@@ -12,7 +20,6 @@ $conn = new mysqli($servername, $username, $password, $dbName);
 session_start();
 $currentUser = $_SESSION['typedUser'];
 
-
 // Querying users from db
 $userSql = "SELECT * FROM `user`;";
 $userResult = $conn->query($userSql);
@@ -21,21 +28,21 @@ $userResult = $userResult->fetch_all();
 // Finding the user's the current user has messages with
 $users = [];
 foreach($userResult as $u) {
-  // Cross checking sender IDs with current user's ID
+  // Cross all user IDs with current user's ID
   if ($u[0] != $currentUser[0]) {
-    // Add the recipeient's id to array (note this array could have duplicates)
+    // add all users that aren't the current user
     array_push($users, $u);
   }
 }
 
 // INSERT QUERY
-// If the user sends a message, the database must update, and that message should be displayed
+// Adds row to the database from user input, with other user, time and location.
 if(isset($_POST['submit'])) {
     $selectedApptTime = $_POST['addedTime'];
     $selectedApptLocation = $_POST['addedLocation'];
     $selectedApptUser = $_POST['addedUser']; 
 
-    // Send a query to the db with a new message
+    // Send a query to the db with a new appointment
     $insertSql = "INSERT INTO appointment (`User1ID`, `User2ID`, `Time`, `Location`)
     VALUES ('$currentUser[0]', '$addedUser', '$selectedApptTime', '$selectedApptLocation')";
   
@@ -44,7 +51,6 @@ if(isset($_POST['submit'])) {
       echo "Error: " . $insertSQL . "<br>" . $conn->error;
     }
   
-    // The page will automatically refresh thanks to line below
     header('Location: /appointments.php');
     exit;
   }
@@ -62,10 +68,11 @@ if(isset($_POST['submit'])) {
   <script src ="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>  
   <script src ="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/js/bootstrap-datetimepicker.min.js"></script>  
   <script>  
+//   function for dateTime picker
     $(function() {  
         $('#datetimepicker1').datetimepicker();  
     });  
-
+//  function for select picker
     $('.selectpicker').change(function () {
         var selectedItem = $('.selectpicker').val();
         alert(selectedItem);
@@ -104,6 +111,7 @@ if(isset($_POST['submit'])) {
                 <div class="container">
                     <h3> Choose User </h3>
                         <?php
+                        // select from all other users list
                             foreach($users as $u) {
                                 echo '<div class="form-check">
                                     <input type="radio" class="form-check-input" name="addedUser" value="'. $u[0].'">'.$u[1].' '.$u[2].' 
@@ -115,6 +123,7 @@ if(isset($_POST['submit'])) {
             </div>
             <div class="form-group">  
                 <div class="container">
+                    <!-- choose appointment date and time with bootstrap picker -->
                     <h3> Appointment Time </h3>
                     <div class ='input-group date' id='datetimepicker1'>  
                         <input type ='text' class="form-control" name="addedTime"/>  
@@ -126,10 +135,12 @@ if(isset($_POST['submit'])) {
             </div>
             <div class="form-group">  
                 <div class="container">
+                    <!-- choose appointment location with input text -->
                     <h3> Appointment Location </h3>
                     <input type="text" class="form-control" name="addedLocation">
                 </div>
             </div>
+            <!-- submit to sent insert query -->
             <button type="submit" class="btn btn-primary" name="submit">Save</button>
             </form>
         </div>
